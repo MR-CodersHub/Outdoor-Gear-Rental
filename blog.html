@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | TAIGA</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* --- Blog Redesign Styles --- */
+        .page-header {
+            width: 100%;
+            padding-top: 200px;
+            padding-bottom: 140px;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&q=80&w=1920');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .blog-container {
+            display: grid;
+            grid-template-columns: 2.2fr 1fr;
+            gap: 5rem;
+            margin-bottom: 8rem;
+        }
+
+        /* --- Journal Cards --- */
+        .journal-post {
+            margin-bottom: 5rem;
+            position: relative;
+        }
+
+        .journal-img-wrap {
+            position: relative;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+            border-radius: var(--radius-md);
+            margin-bottom: 2.5rem;
+            background: var(--bg-secondary);
+        }
+
+        .journal-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .journal-post:hover .journal-img-wrap img {
+            transform: scale(1.05);
+        }
+
+        .journal-category {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 8px 16px;
+            background: var(--accent-gold);
+            color: black;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 2px;
+            z-index: 2;
+        }
+
+        .journal-meta {
+            display: flex;
+            gap: 2rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+        }
+
+        .journal-title {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .journal-title a:hover {
+            color: var(--accent-gold);
+        }
+
+        .journal-excerpt {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            max-width: 90%;
+        }
+
+        /* --- Technical Sidebar --- */
+        .sidebar-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .sidebar-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 4px; height: 100%;
+            background: var(--accent-gold);
+            opacity: 0.5;
+        }
+
+        .sidebar-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--accent-gold);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-search {
+            display: flex;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            padding: 5px;
+        }
+
+        .sidebar-search input {
+            background: transparent;
+            border: none;
+            padding: 12px;
+            color: var(--text-primary);
+            flex: 1;
+            outline: none;
+        }
+
+        .category-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .category-item:hover {
+            color: var(--accent-gold);
+            padding-left: 10px;
+        }
+
+        .category-count {
+            color: var(--text-muted);
+            font-family: monospace;
+        }
+
+        .promo-box {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&q=80&w=600');
+            background-size: cover;
+            padding: 40px;
+            text-align: center;
+            border: 1px solid var(--accent-gold);
+        }
+
+        @media (max-width: 992px) {
+            .blog-container { grid-template-columns: 1fr; gap: 4rem; }
+            .journal-post { margin-bottom: 4rem; }
+            .journal-excerpt { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Section 1: Full-Width Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h4 class="font-heading" style="color: var(--accent-gold); letter-spacing: 4px; margin-bottom: 1.5rem;">Field Intelligence</h4>
+            <h1 style="font-size: clamp(3rem, 10vw, 5.5rem); line-height: 0.9;">Basecamp <br>Journal.</h1>
+        </div>
+    </section>
+
+    <main class="container">
+        <div class="blog-container">
+            <!-- Journal Feed -->
+            <div id="postsList">
+                <article class="journal-post">
+                    <div class="journal-img-wrap">
+                        <span class="journal-category">Tactical Intel</span>
+                        <img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&q=80&w=1200" alt="Trail Tips">
+                    </div>
+                    <div class="journal-meta">
+                        <span>MAY 12, 2026</span>
+                        <span>BY ALEX RIVERS</span>
+                        <span>4 MIN READ</span>
+                    </div>
+                    <h2 class="journal-title font-heading"><a href="blog-details.html">10 Must-Visit Hiking Trails for Summer 2026</a></h2>
+                    <p class="journal-excerpt">
+                        From the rugged peaks of the Cascades to the serene lakes of the Adirondacks, we've compiled the ultimate summer hiking bucket list for those seeking technical terrain and absolute solitude.
+                    </p>
+                    <a href="blog-details.html" class="btn btn-outline">Analyze Protocol</a>
+                </article>
+
+                <article class="journal-post">
+                    <div class="journal-img-wrap">
+                        <span class="journal-category">Gear Profile</span>
+                        <img src="assets/gear_review.png" alt="Gear Review">
+                    </div>
+                    <div class="journal-meta">
+                        <span>MAY 05, 2026</span>
+                        <span>BY SARAH STONE</span>
+                        <span>7 MIN READ</span>
+                    </div>
+                    <h2 class="journal-title font-heading"><a href="blog-details.html">The Ultimate Guide to 3-Season Tents</a></h2>
+                    <p class="journal-excerpt">
+                        Choosing the right shelter can make or break your expedition. In this comprehensive profile, we break down weight, tensile strength, and aerodynamic stability in high-altitude environments.
+                    </p>
+                    <a href="blog-details.html" class="btn btn-outline">Review Specs</a>
+                </article>
+            </div>
+
+            <!-- Technical Sidebar -->
+            <aside>
+                <div class="sidebar-box">
+                    <h3 class="sidebar-title"><i data-lucide="search" size="16"></i> Search Database</h3>
+                    <div class="sidebar-search">
+                        <input type="text" placeholder="Query Intelligence...">
+                        <button class="btn btn-primary" style="padding: 10px 15px;"><i data-lucide="arrow-right" size="18"></i></button>
+                    </div>
+                </div>
+
+                <div class="sidebar-box">
+                    <h3 class="sidebar-title"><i data-lucide="layers" size="16"></i> Classification</h3>
+                    <div class="category-list">
+                        <a href="#" class="category-item"><span>Trail Tips</span> <span class="category-count">[12]</span></a>
+                        <a href="#" class="category-item"><span>Gear Reviews</span> <span class="category-count">[08]</span></a>
+                        <a href="#" class="category-item"><span>Safety Guides</span> <span class="category-count">[05]</span></a>
+                        <a href="#" class="category-item"><span>Field Reports</span> <span class="category-count">[15]</span></a>
+                    </div>
+                </div>
+
+                <div class="promo-box">
+                    <h4 class="font-heading" style="color: var(--accent-gold); margin-bottom: 1rem;">Deployment Offer</h4>
+                    <p style="font-size: 0.9rem; color: white; margin-bottom: 2rem; line-height: 1.6;">New to the field? Deploy with our Complete Weekend Kit and receive a 20% discount on your first rental.</p>
+                    <a href="adventure-packages.html" class="btn btn-primary" style="width: 100%;">Redeem Credit</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

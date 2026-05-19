@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing & Policies | Peak Rental</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .pricing-header {
+            padding: 160px 0 80px;
+            text-align: center;
+            background: var(--bg-tertiary);
+        }
+
+        .pricing-table-container {
+            margin: 4rem 0;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            color: var(--text-primary);
+        }
+
+        th, td {
+            padding: 25px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: var(--accent-olive);
+            color: white;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .policy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .policy-card {
+            padding: 30px;
+            border-radius: 15px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <section class="pricing-header">
+            <div class="container">
+                <h1 style="font-size: 3rem; margin-bottom: 1rem;">Transparent Pricing</h1>
+                <p style="color: var(--text-secondary);">No hidden fees. No surprise charges. Just fair rates for great gear.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 style="margin-bottom: 2rem;">Rental Rate Comparison</h2>
+                <div class="pricing-table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Gear Category</th>
+                                <th>Standard (Daily)</th>
+                                <th>Premium (Daily)</th>
+                                <th>Weekly Bundle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Tents (2-Person)</strong></td>
+                                <td>$25</td>
+                                <td>$40</td>
+                                <td>$140 <small>(Save 20%)</small></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Backpacks</strong></td>
+                                <td>$15</td>
+                                <td>$25</td>
+                                <td>$90 <small>(Save 15%)</small></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sleeping Bags</strong></td>
+                                <td>$12</td>
+                                <td>$20</td>
+                                <td>$70 <small>(Save 15%)</small></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cooking Systems</strong></td>
+                                <td>$8</td>
+                                <td>$15</td>
+                                <td>$45 <small>(Save 20%)</small></td>
+                            </tr>
+                            <tr>
+                                <td><strong>GPS & Safety</strong></td>
+                                <td>$10</td>
+                                <td>$18</td>
+                                <td>$60 <small>(Save 15%)</small></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="policy-grid">
+                    <div class="policy-card">
+                        <i data-lucide="shield-check" size="32" style="color: var(--accent-gold); margin-bottom: 1rem;"></i>
+                        <h3>Damage Deposit</h3>
+                        <p style="color: var(--text-secondary); margin-top: 10px;">A flat $100 security deposit is required for all rentals. This is fully refunded within 48 hours of gear return, provided equipment is in good condition.</p>
+                    </div>
+                    <div class="policy-card">
+                        <i data-lucide="alert-circle" size="32" style="color: #ff6b6b; margin-bottom: 1rem;"></i>
+                        <h3>Late Returns</h3>
+                        <p style="color: var(--text-secondary); margin-top: 10px;">Returns more than 4 hours late will incur a partial day charge. Returns over 24 hours late are charged at 1.5x the daily rate to cover logistics.</p>
+                    </div>
+                    <div class="policy-card">
+                        <i data-lucide="x-circle" size="32" style="color: var(--text-muted); margin-bottom: 1rem;"></i>
+                        <h3>Cancellation Policy</h3>
+                        <p style="color: var(--text-secondary); margin-top: 10px;">Cancel up to 48 hours before pickup for a full refund. Cancellations within 48 hours incur a 20% restocking fee.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background: var(--bg-tertiary); text-align: center;">
+            <div class="container">
+                <h2 style="color: var(--text-primary); margin-bottom: 1.5rem;">Ready to hit the trail?</h2>
+                <a href="products.html" class="btn btn-primary">Start Your Reservation</a>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | TAIGA</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .hero {
+            background-image: url('assets/tactical_hero.png');
+        }
+
+        .category-nav {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: -80px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .category-item {
+            position: relative;
+            aspect-ratio: 1/1.2;
+            overflow: hidden;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+        }
+
+        .category-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .category-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            height: 60%;
+            z-index: 2;
+        }
+
+        .category-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .category-item:hover .category-overlay {
+            background: linear-gradient(to top, var(--accent-gold) 0%, transparent 100%);
+        }
+
+        .category-item:hover h3 {
+            color: black;
+        }
+        
+        .category-item:hover p {
+            color: rgba(0,0,0,0.7) !important;
+        }
+
+        .category-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            transition: var(--transition);
+            color: white;
+        }
+
+        .lineup-section {
+            background: var(--bg-primary);
+        }
+
+        .product-lineup-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .spec-card {
+            transition: var(--transition);
+            padding: 20px;
+            border-radius: var(--radius-md);
+        }
+
+        .spec-card:hover {
+            background: rgba(255, 180, 0, 0.05);
+            transform: scale(1.05);
+        }
+
+        .lineup-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .lineup-card:hover {
+            border-color: var(--accent-gold);
+            background: var(--bg-tertiary);
+        }
+
+        .lineup-img {
+            position: relative;
+            aspect-ratio: 1/1;
+            background: var(--bg-tertiary);
+            overflow: hidden;
+        }
+
+        .lineup-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .status-pill {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--accent-gold);
+            color: black;
+            padding: 3px 8px;
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            border-radius: 2px;
+        }
+
+        .lineup-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .lineup-specs {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+            padding: 8px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .lineup-specs span {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .lineup-btn {
+            margin-top: auto;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--accent-gold);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .desktop-only { display: none !important; }
+            
+            .product-lineup-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .lineup-content { padding: 12px; }
+            .lineup-specs { display: none; }
+            .lineup-card h3 { font-size: 0.9rem !important; }
+            .lineup-card .price { font-size: 0.8rem !important; }
+            .lineup-card p { display: none; }
+
+            .features-grid {
+                grid-template-columns: 1fr 1.5fr 1fr !important;
+                gap: 0.5rem !important;
+            }
+            .features-grid .spec-card {
+                padding: 0 !important;
+                gap: 0 !important;
+            }
+            .features-grid .spec-card h3 {
+                font-size: 0.55rem !important;
+                margin-bottom: 2px !important;
+            }
+            .features-grid .spec-card p {
+                font-size: 0.45rem !important;
+                line-height: 1.1 !important;
+            }
+            .features-grid .spec-card {
+                text-align: center !important;
+            }
+            .features-section h2 {
+                font-size: 1.8rem !important;
+            }
+            .features-grid > div {
+                gap: 1rem !important; /* Reduce vertical gap between spec blocks */
+            }
+        }
+
+        .lineup-details h4 {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .lineup-details .price {
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+
+        .features-section {
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6rem;
+        }
+
+        .feature-annotations {
+            position: relative;
+            flex: 1;
+        }
+
+        .feature-point {
+            position: absolute;
+            background: var(--accent-gold);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: black;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 0 0 5px rgba(255, 180, 0, 0.2);
+            transition: var(--transition);
+        }
+
+        .feature-point:hover {
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 992px) {
+            .category-nav { 
+                grid-template-columns: repeat(2, 1fr); 
+                margin-top: 40px; 
+                padding: 0 20px;
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .features-section { flex-direction: column; gap: 3rem; }
+            .hero h1 { font-size: clamp(2.5rem, 10vw, 4rem); }
+            .hero-content { text-align: center; }
+            .hero .flex { justify-content: center; flex-direction: column; }
+            .hero .btn { width: 100%; text-align: center; }
+        }
+
+        @media (max-width: 500px) {
+            .category-nav { grid-template-columns: 1fr; margin-top: 30px; }
+            .category-item { aspect-ratio: 16/9; }
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h4 class="font-heading" style="color: var(--accent-gold); letter-spacing: 4px; margin-bottom: 1rem;">Finnish Craftsmanship</h4>
+                    <h1>The Last Gear <br>You'll Ever Need.</h1>
+                    <div class="flex gap-1" style="margin-top: 3rem;">
+                        <a href="products.html" class="btn btn-primary">Browse Lineup</a>
+                        <a href="about.html" class="btn btn-outline">Our Philosophy</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SVG Wavy Separator (Injected via CSS mask or SVG) -->
+            <div class="wavy-separator">
+                <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                    <path class="fill" d="M0,32L60,42.7C120,53,240,75,360,74.7C480,75,600,53,720,48C840,43,960,53,1080,58.7C1200,64,1320,64,1380,64L1440,64L1440,120L1380,120C1320,120,1200,120,1080,120C960,120,840,120,720,120C600,120,480,120,360,120C240,120,120,120,60,120L0,120Z"></path>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Category Nav Overlay -->
+        <section class="container" style="margin-bottom: 100px;">
+            <div class="category-nav">
+                <div class="category-item" onclick="location.href='products.html?category=backpacks'">
+                    <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&q=80&w=600" alt="Backpacks">
+                    <div class="category-overlay">
+                        <h3>Backpacks</h3>
+                        <p style="font-size: 0.8rem; color: #ccc; transition: 0.3s;">Built for heavy loads.</p>
+                    </div>
+                </div>
+                <div class="category-item" onclick="location.href='products.html?category=duffels'">
+                    <img src="assets/category_duffels.png" alt="Duffels">
+                    <div class="category-overlay">
+                        <h3>Duffel Bags</h3>
+                        <p style="font-size: 0.8rem; color: #ccc; transition: 0.3s;">Maximum capacity.</p>
+                    </div>
+                </div>
+                <div class="category-item" onclick="location.href='products.html?category=cooking'">
+                    <img src="assets/category_stoves.png" alt="Stoves">
+                    <div class="category-overlay">
+                        <h3>Travel Stoves</h3>
+                        <p style="font-size: 0.8rem; color: #ccc; transition: 0.3s;">Fire anywhere.</p>
+                    </div>
+                </div>
+                <div class="category-item" onclick="location.href='products.html?category=accessories'">
+                    <img src="assets/category_accessories.png" alt="Accessories">
+                    <div class="category-overlay">
+                        <h3>Accessories</h3>
+                        <p style="font-size: 0.8rem; color: #ccc; transition: 0.3s;">Add-on modules.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 60px; max-width: 600px;">
+                <p style="font-size: 1.2rem; line-height: 1.8; color: var(--text-secondary);">High quality functional equipment for demanding use in extreme environments. From a prestige Finnish brand <span style="color: var(--accent-gold); border-bottom: 2px solid var(--accent-gold);">Taiga.</span></p>
+            </div>
+        </section>
+
+        <!-- Product Lineup -->
+        <section class="section lineup-section" style="padding-top: 0;">
+            <div class="container">
+                <div class="flex justify-between items-center" style="margin-bottom: 3rem;">
+                    <div>
+                        <h4 class="font-heading" style="color: var(--accent-gold); font-size: 0.7rem; letter-spacing: 2px;">The RANGER Lineup</h4>
+                        <h2 style="font-size: 2.5rem; margin-top: 5px;">Elite Gear.</h2>
+                    </div>
+                    <a href="products.html" class="btn btn-outline" style="padding: 10px 25px; font-size: 0.75rem;">View All</a>
+                </div>
+                <div class="product-lineup-grid grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
+                    <!-- RANGER L -->
+                    <div class="lineup-card" onclick="location.href='product-details.html?id=ranger-l'" style="cursor: pointer;">
+                        <div class="lineup-img">
+                            <img src="https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&q=80&w=600" alt="RANGER L">
+                            <div class="status-pill">Ready</div>
+                        </div>
+                        <div class="lineup-content">
+                            <h3 class="font-heading" style="font-size: 1rem; margin-bottom: 5px;">RANGER L</h3>
+                            <div class="price" style="color: var(--accent-gold); font-weight: 700; font-size: 0.9rem;">$359.90</div>
+                            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Premium 55L heavy-duty expedition pack.</p>
+                            <div class="lineup-specs">
+                                <span><i data-lucide="package" size="10"></i> 55L</span>
+                                <span><i data-lucide="weight" size="10"></i> 2.4kg</span>
+                            </div>
+                            <div class="lineup-btn">Rent Now <i data-lucide="arrow-right" size="14"></i></div>
+                        </div>
+                    </div>
+
+                    <!-- RANGER S -->
+                    <div class="lineup-card" onclick="location.href='product-details.html?id=ranger-s'" style="cursor: pointer;">
+                        <div class="lineup-img">
+                            <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=600" alt="RANGER S">
+                            <div class="status-pill">Fast</div>
+                        </div>
+                        <div class="lineup-content">
+                            <h3 class="font-heading" style="font-size: 1rem; margin-bottom: 5px;">RANGER S</h3>
+                            <div class="price" style="color: var(--accent-gold); font-weight: 700; font-size: 0.9rem;">$139.90</div>
+                            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Tactical 20L daypack with PALS webbing.</p>
+                            <div class="lineup-specs">
+                                <span><i data-lucide="package" size="10"></i> 20L</span>
+                                <span><i data-lucide="weight" size="10"></i> 0.8kg</span>
+                            </div>
+                            <div class="lineup-btn">Rent Now <i data-lucide="arrow-right" size="14"></i></div>
+                        </div>
+                    </div>
+
+                    <!-- RANGER M -->
+                    <div class="lineup-card" onclick="location.href='product-details.html?id=ranger-m'" style="cursor: pointer;">
+                        <div class="lineup-img">
+                            <img src="https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&q=80&w=600" alt="RANGER M">
+                            <div class="status-pill">Core</div>
+                        </div>
+                        <div class="lineup-content">
+                            <h3 class="font-heading" style="font-size: 1rem; margin-bottom: 5px;">RANGER M</h3>
+                            <div class="price" style="color: var(--accent-gold); font-weight: 700; font-size: 0.9rem;">$229.90</div>
+                            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Multi-day 30L technical mission pack.</p>
+                            <div class="lineup-specs">
+                                <span><i data-lucide="package" size="10"></i> 30L</span>
+                                <span><i data-lucide="weight" size="10"></i> 1.6kg</span>
+                            </div>
+                            <div class="lineup-btn">Rent Now <i data-lucide="arrow-right" size="14"></i></div>
+                        </div>
+                    </div>
+
+                    <!-- RANGER XL -->
+                    <div class="lineup-card" onclick="location.href='product-details.html?id=ranger-xl'" style="cursor: pointer;">
+                        <div class="lineup-img">
+                            <img src="https://images.unsplash.com/photo-1509762774605-f07235a08f1f?auto=format&fit=crop&q=80&w=600" alt="RANGER XL">
+                            <div class="status-pill">Heavy</div>
+                        </div>
+                        <div class="lineup-content">
+                            <h3 class="font-heading" style="font-size: 1rem; margin-bottom: 5px;">RANGER XL</h3>
+                            <div class="price" style="color: var(--accent-gold); font-weight: 700; font-size: 0.9rem;">$459.90</div>
+                            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">The ultimate 70L internal frame pack for extreme logistics.</p>
+                            <div class="lineup-specs">
+                                <span><i data-lucide="package" size="10"></i> 70L</span>
+                                <span><i data-lucide="weight" size="10"></i> 3.1kg</span>
+                            </div>
+                            <div class="lineup-btn">Rent Now <i data-lucide="arrow-right" size="14"></i></div>
+                        </div>
+                    </div>
+
+                    <!-- RANGER Daypack (Desktop Only) -->
+                    <div class="lineup-card desktop-only" onclick="location.href='product-details.html'" style="cursor: pointer;">
+                        <div class="lineup-img">
+                            <img src="https://images.unsplash.com/photo-1572584642822-6f8de0243c93?auto=format&fit=crop&q=80&w=600" alt="RANGER Daypack">
+                            <div class="status-pill">Lite</div>
+                        </div>
+                        <div class="lineup-content">
+                            <h3 class="font-heading" style="font-size: 1rem; margin-bottom: 5px;">RANGER Daypack</h3>
+                            <div class="price" style="color: var(--accent-gold); font-weight: 700; font-size: 0.9rem;">$89.90</div>
+                            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Lightweight EDC pack for urban missions.</p>
+                            <div class="lineup-specs">
+                                <span><i data-lucide="package" size="10"></i> 15L</span>
+                                <span><i data-lucide="weight" size="10"></i> 0.6kg</span>
+                            </div>
+                            <div class="lineup-btn">Rent Now <i data-lucide="arrow-right" size="14"></i></div>
+                        </div>
+                    </div>
+
+                    <!-- RANGER Duffel (Desktop Only) -->
+                    <div class="lineup-card desktop-only" onclick="location.href='product-details.html'" style="cursor: pointer;">
+                        <div class="lineup-img">
+                            <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=600" alt="RANGER Duffel">
+                            <div class="status-pill">Travel</div>
+                        </div>
+                        <div class="lineup-content">
+                            <h3 class="font-heading" style="font-size: 1rem; margin-bottom: 5px;">RANGER Duffel</h3>
+                            <div class="price" style="color: var(--accent-gold); font-weight: 700; font-size: 0.9rem;">$199.90</div>
+                            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Maximum capacity tactical gear hauler.</p>
+                            <div class="lineup-specs">
+                                <span><i data-lucide="package" size="10"></i> 80L</span>
+                                <span><i data-lucide="weight" size="10"></i> 1.2kg</span>
+                            </div>
+                            <div class="lineup-btn">View Gear <i data-lucide="arrow-right" size="14"></i></div>
+                        </div>
+                    </div>
+                </div>
+                     </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Spotlight: Technical Breakdown -->
+        <section class="section features-section" style="background: var(--bg-primary); position: relative; overflow: hidden;">
+            <!-- Background Decorative Text -->
+            <div style="position: absolute; top: 10%; right: -5%; font-size: 15rem; font-weight: 900; opacity: 0.03; color: white; pointer-events: none; text-transform: uppercase; white-space: nowrap;">
+                Engineering
+            </div>
+
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 6rem;">
+                    <h4 class="font-heading" style="color: var(--accent-gold); font-size: 0.8rem; letter-spacing: 4px;">Precision Built</h4>
+                    <h2 style="font-size: clamp(2.5rem, 8vw, 4rem);">Genius Features.</h2>
+                </div>
+
+                <div class="grid features-grid" style="grid-template-columns: 1fr 1.2fr 1fr; gap: 4rem; align-items: center;">
+                    <!-- Left Column: Specs -->
+                    <div style="display: flex; flex-direction: column; gap: 4rem;">
+                        <div class="spec-card">
+                            <h3 class="font-heading" style="font-size: 0.9rem; color: var(--accent-gold); margin-bottom: 10px;">01. Floating Top</h3>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary);">Expandable lid system allows for 15L of additional overstuffing while maintaining center of gravity.</p>
+                        </div>
+                        <div class="spec-card">
+                            <h3 class="font-heading" style="font-size: 0.9rem; color: var(--accent-gold); margin-bottom: 10px;">02. MIL-SPEC Materials</h3>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary);">Built from 1000D Cordura with double-stitched stress points for lifetime structural integrity.</p>
+                        </div>
+                    </div>
+
+                    <!-- Center: Image -->
+                    <div style="position: relative; padding: 20px;">
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 1px solid var(--accent-gold); opacity: 0.2; border-radius: var(--radius-lg); transform: rotate(-2deg);"></div>
+                        <img src="assets/features_detail.png" alt="Engineering Detail" style="width: 100%; border-radius: var(--radius-lg); position: relative; z-index: 2; box-shadow: var(--shadow-lg);">
+                    </div>
+
+                    <!-- Right Column: Specs -->
+                    <div style="display: flex; flex-direction: column; gap: 4rem;">
+                        <div class="spec-card" style="text-align: right;">
+                            <h3 class="font-heading" style="font-size: 0.9rem; color: var(--accent-gold); margin-bottom: 10px;">03. PALS Webbing</h3>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary);">The versatile modular attachment system for adding mission-specific pouches and accessories.</p>
+                        </div>
+                        <div class="spec-card" style="text-align: right;">
+                            <h3 class="font-heading" style="font-size: 0.9rem; color: var(--accent-gold); margin-bottom: 10px;">04. Anatomical Frame</h3>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary);">Internal aluminum frame geometry designed to transfer load weight directly to the hips.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 6rem;">
+                    <p style="max-width: 700px; margin: 0 auto 2.5rem; color: var(--text-secondary); line-height: 1.8;">The RANGER lineup is more than just a backpack—it's a modular platform engineered for high-stakes environments. Every stitch serves a purpose.</p>
+                    <a href="product-details.html" class="btn btn-primary">Explore Tech Specs</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

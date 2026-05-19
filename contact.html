@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | TAIGA</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* --- Contact Redesign Styles --- */
+        .page-header {
+            width: 100%;
+            padding-top: 160px;
+            padding-bottom: 80px;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?auto=format&fit=crop&q=80&w=1920');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 6rem;
+        }
+
+        /* --- Channels --- */
+        .channel-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .channel-item {
+            position: relative;
+        }
+
+        .channel-label {
+            font-size: 0.7rem;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .channel-value {
+            font-size: 1.25rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        /* --- Transmission Form --- */
+        .transmission-form-wrap {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            position: relative;
+        }
+
+        .transmission-form-wrap::before {
+            content: '';
+            position: absolute;
+            top: -1px; right: -1px;
+            width: 30px; height: 30px;
+            border-top: 2px solid var(--accent-gold);
+            border-right: 2px solid var(--accent-gold);
+        }
+
+        .transmission-header {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .field-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .field {
+            margin-bottom: 2rem;
+        }
+
+        .field label {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .field input, .field textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 0;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1.1rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .field input:focus, .field textarea:focus {
+            border-color: var(--accent-gold);
+        }
+
+        /* --- Global Map --- */
+        .map-frame {
+            height: 600px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius-md);
+            margin-bottom: 8rem;
+        }
+
+        .map-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(1.1) brightness(0.6);
+        }
+
+        .map-ping {
+            position: absolute;
+            top: 45%;
+            left: 55%;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--accent-gold);
+        }
+
+        .map-ping::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px; height: 60px;
+            border: 1px solid var(--accent-gold);
+            border-radius: 50%;
+            animation: ping 2s infinite;
+        }
+
+        @keyframes ping {
+            0% { width: 20px; height: 20px; opacity: 1; }
+            100% { width: 100px; height: 100px; opacity: 0; }
+        }
+
+        @media (max-width: 992px) {
+            .contact-grid { grid-template-columns: 1fr; gap: 4rem; }
+            .transmission-form-wrap { padding: 40px; }
+            .field-group { grid-template-columns: 1fr; gap: 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Section 1: Full-Width Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h4 class="font-heading" style="color: var(--accent-gold); letter-spacing: 4px; margin-bottom: 1.5rem;">Comm Line</h4>
+            <h1 style="font-size: clamp(3rem, 10vw, 5.5rem); line-height: 0.9;">Establish <br>Contact.</h1>
+        </div>
+    </section>
+
+    <main class="container">
+        <div class="contact-grid">
+            <!-- Channel List -->
+            <div class="channel-list">
+                <div class="channel-item">
+                    <span class="channel-label">Basecamp Coordinates</span>
+                    <p class="channel-value">123 Tactical Way,<br>Rovaniemi, Finland</p>
+                </div>
+                <div class="channel-item">
+                    <span class="channel-label">Transmission Frequency</span>
+                    <p class="channel-value">hello@taiga-gear.com</p>
+                </div>
+                <div class="channel-item">
+                    <span class="channel-label">Emergency Support</span>
+                    <p class="channel-value">support@taiga-gear.com</p>
+                </div>
+                <div class="channel-item">
+                    <span class="channel-label">Operational Window</span>
+                    <p class="channel-value">0800 - 2000 (EET)</p>
+                </div>
+            </div>
+
+            <!-- Transmission Form -->
+            <div class="transmission-form-wrap">
+                <div class="transmission-header">
+                    <h3 class="font-heading" style="font-size: 1.2rem; color: var(--accent-gold); margin-bottom: 0.5rem;">Secure Transmission</h3>
+                    <p style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">Encrypted Field Communication</p>
+                </div>
+
+                <form id="taigaTransmission">
+                    <div class="field-group">
+                        <div class="field">
+                            <label>Callsign (First Name)</label>
+                            <input type="text" placeholder="ERIK" required>
+                        </div>
+                        <div class="field">
+                            <label>Identification (Last Name)</label>
+                            <input type="text" placeholder="LARSEN" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Response Channel (Email)</label>
+                        <input type="email" placeholder="ERIK@MISSION.COM" required>
+                    </div>
+                    <div class="field">
+                        <label>Mission Brief (Message)</label>
+                        <textarea rows="4" placeholder="DESCRIBE YOUR EXPEDITION REQUIREMENTS..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 20px;">Transmit Data</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Global Map -->
+        <div class="map-frame">
+            <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=1920" alt="Tactical Grid Map">
+            <div class="map-ping"></div>
+            <div style="position: absolute; bottom: 40px; right: 40px; background: rgba(0,0,0,0.8); padding: 20px; border-left: 4px solid var(--accent-gold); backdrop-filter: blur(10px);">
+                <h4 class="font-heading" style="font-size: 0.8rem; color: var(--accent-gold); margin-bottom: 5px;">BASECAMP ALPHA</h4>
+                <p style="color: white; font-size: 0.75rem; letter-spacing: 1px;">COORDINATES: 66.5039° N, 25.7282° E</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script>
+        lucide.createIcons();
+        document.getElementById('taigaTransmission').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Mission Briefing Transmitted. Response expected within 0400 hours.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

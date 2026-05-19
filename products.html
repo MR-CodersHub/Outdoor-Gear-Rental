@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products | TAIGA</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .filter-btn {
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .filter-btn.active {
+            color: var(--accent-gold) !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main>
+        <!-- Page Banner -->
+        <section class="page-banner"
+            style="background-image: url('https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&q=80&w=1920'); padding-top: 100px;">
+            <div class="container">
+                <h4 class="font-heading" style="color: var(--accent-gold); letter-spacing: 4px; margin-bottom: 1.5rem;">
+                    Mission Logistics</h4>
+                <h1>Elite Services & Gear.</h1>
+                <p style="max-width: 600px; margin: 0 auto; color: var(--text-secondary); font-size: 1.1rem;">Technical
+                    equipment and logistical support protocols for extreme field operations.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="filter-bar"
+                    style="display: flex; justify-content: space-between; align-items: center; margin: 4rem 0; padding-bottom: 20px; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 20px;">
+                    <div class="category-filter" style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                        <a href="#" class="filter-btn active" data-filter="all"
+                            style="font-weight: 700; text-transform: uppercase; font-size: 0.85rem;">All</a>
+                        <a href="#" class="filter-btn" data-filter="backpacks"
+                            style="font-weight: 700; text-transform: uppercase; font-size: 0.85rem;">Backpacks</a>
+                        <a href="#" class="filter-btn" data-filter="duffels"
+                            style="font-weight: 700; text-transform: uppercase; font-size: 0.85rem;">Duffels</a>
+                        <a href="#" class="filter-btn" data-filter="tents"
+                            style="font-weight: 700; text-transform: uppercase; font-size: 0.85rem;">Tents</a>
+                        <a href="#" class="filter-btn" data-filter="cooking"
+                            style="font-weight: 700; text-transform: uppercase; font-size: 0.85rem;">Cooking</a>
+                        <a href="#" class="filter-btn" data-filter="accessories"
+                            style="font-weight: 700; text-transform: uppercase; font-size: 0.85rem;">Accessories</a>
+                    </div>
+                    <div class="flex items-center gap-1"
+                        style="border: 1px solid var(--border-color); padding: 8px 15px; border-radius: 50px;">
+                        <i data-lucide="search" size="18" style="color: var(--text-muted);"></i>
+                        <input type="text" id="searchInput" placeholder="Search catalog..."
+                            style="background: transparent; border: none; color: var(--text-primary); font-family: inherit; outline: none; padding-left: 10px;">
+                    </div>
+                </div>
+
+                <div class="catalog-grid grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4"
+                    id="catalogGrid">
+                    <!-- Products -->
+                    <div class="product-card" data-category="tents">
+                        <div class="product-img-container">
+                            <a href="product-details.html?id=alpine-tent" class="product-img-link">
+                                <img src="https://images.unsplash.com/photo-1537225228614-56cc3556d7ed?auto=format&fit=crop&q=80&w=600"
+                                    alt="Alpine Tent">
+                                <div class="product-badge">Top Rated</div>
+                            </a>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-tag">Tents / 4P</span>
+                            <h3 class="font-heading">Alpine 4-Person Tent</h3>
+                            <div class="price">$45.00 <small>/ Day</small></div>
+                            <a href="product-details.html?id=alpine-tent" class="btn btn-outline"
+                                style="width: 100%; margin-top: auto;">Analyze Specs</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="backpacks">
+                        <div class="product-img-container">
+                            <a href="product-details.html?id=trailblazer-pack" class="product-img-link">
+                                <img src="https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&q=80&w=600"
+                                    alt="Trailblazer Pack">
+                            </a>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-tag">Backpacks / 65L</span>
+                            <h3 class="font-heading">Trailblazer 65L Backpack</h3>
+                            <div class="price">$20.00 <small>/ Day</small></div>
+                            <a href="product-details.html?id=trailblazer-pack" class="btn btn-outline"
+                                style="width: 100%; margin-top: auto;">Analyze Specs</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="sleeping">
+                        <div class="product-img-container">
+                            <a href="product-details.html?id=subzero-bag" class="product-img-link">
+                                <img src="assets/subzero_bag.png" alt="SubZero Bag">
+                            </a>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-tag">Sleeping / -20°F</span>
+                            <h3 class="font-heading">SubZero Sleeping Bag</h3>
+                            <div class="price">$15.00 <small>/ Day</small></div>
+                            <a href="product-details.html?id=subzero-bag" class="btn btn-outline"
+                                style="width: 100%; margin-top: auto;">Analyze Specs</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="duffels">
+                        <div class="product-img-container">
+                            <a href="product-details.html?id=expedition-duffel" class="product-img-link">
+                                <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=600"
+                                    alt="Expedition Duffel">
+                            </a>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-tag">Duffels / 90L</span>
+                            <h3 class="font-heading">Expedition Duffel 90L</h3>
+                            <div class="price">$189.00</div>
+                            <a href="product-details.html" class="btn btn-outline"
+                                style="width: 100%; margin-top: auto;">Analyze Specs</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="tents">
+                        <div class="product-img-container">
+                            <a href="product-details.html" class="product-img-link">
+                                <img src="https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&q=80&w=600"
+                                    alt="Expedition Tent">
+                            </a>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-tag">Tents / 4S</span>
+                            <h3 class="font-heading">Arctic Shield 4P Tent</h3>
+                            <div class="price">$45.00 <small>/ Day</small></div>
+                            <a href="product-details.html" class="btn btn-outline"
+                                style="width: 100%; margin-top: auto;">Analyze Specs</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="cooking">
+                        <div class="product-img-container">
+                            <a href="product-details.html?id=reactor-stove" class="product-img-link">
+                                <img src="assets/reactor_stove.png" alt="Reactor Cooking System">
+                            </a>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-tag">Cooking / High-Alt</span>
+                            <h3 class="font-heading">Reactor Cooking System</h3>
+                            <div class="price">$12.00 <small>/ Day</small></div>
+                            <a href="product-details.html?id=reactor-stove" class="btn btn-outline"
+                                style="width: 100%; margin-top: auto;">Analyze Specs</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="accessories">
+                        <div class="product-img-container">
+                            <a href="product-details.html?id=mess-kit" class="product-img-link">
+                                <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=600"
+                                    alt="Accessories">
+                            </a>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-tag">Modules / PALS</span>
+                            <h3 class="font-heading">Modular Pouch Set</h3>
+                            <div class="price">$45.00</div>
+                            <a href="product-details.html?id=mess-kit" class="btn btn-outline"
+                                style="width: 100%; margin-top: auto;">Analyze Specs</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="backpacks">
+                        <div class="product-img-container">
+                            <a href="product-details.html?id=ranger-m" class="product-img-link">
+                                <img src="https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?auto=format&fit=crop&q=80&w=600"
+                                    alt="Backpack Brown">
+                            </a>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-tag">Backpacks / 30L</span>
+                            <h3 class="font-heading">RANGER M - Desert Brown</h3>
+                            <div class="price">$219.90</div>
+                            <a href="product-details.html?id=ranger-m" class="btn btn-outline"
+                                style="width: 100%; margin-top: auto;">Analyze Specs</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="cooking">
+                        <div class="product-img-container">
+                            <a href="product-details.html?id=mess-kit" class="product-img-link">
+                                <img src="https://images.unsplash.com/photo-1502444330042-d1a1ddf9bb5b?auto=format&fit=crop&q=80&w=600"
+                                    alt="Titanium Mess Kit">
+                            </a>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-tag">Cooking / Titanium</span>
+                            <h3 class="font-heading">Titanium Mess Kit</h3>
+                            <div class="price">$5.00 <small>/ Day</small></div>
+                            <p>Ultralight, corrosion-resistant nesting kit for minimalist backpackers.</p>
+                            <a href="product-details.html?id=mess-kit" class="btn btn-primary"
+                                style="margin-top: auto;">Rent Now</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="accessories">
+                        <div class="product-img">
+                            <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=600"
+                                alt="Navigation">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="font-heading">Satellite Navigator</h3>
+                            <div class="price">$15.00 <small>/ Day</small></div>
+                            <p>High-precision GPS with SOS capabilities and global topographic maps.</p>
+                            <a href="product-details.html" class="btn btn-primary" style="margin-top: auto;">Rent
+                                Now</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="tents">
+                        <div class="product-img">
+                            <img src="https://images.unsplash.com/photo-1517824806704-9040b037703b?auto=format&fit=crop&q=80&w=600"
+                                alt="Bivy">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="font-heading">Tactical Bivy Shelter</h3>
+                            <div class="price">$12.00 <small>/ Day</small></div>
+                            <p>Ultra-compact, waterproof breathable bivy for minimalist stealth camping.</p>
+                            <a href="product-details.html" class="btn btn-primary" style="margin-top: auto;">Rent
+                                Now</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="backpacks">
+                        <div class="product-img">
+                            <img src="https://images.unsplash.com/photo-1509762774605-f07235a08f1f?auto=format&fit=crop&q=80&w=600"
+                                alt="Gear XL">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="font-heading">RANGER XL - M05</h3>
+                            <div class="price">$459.90</div>
+                            <p>The ultimate 70L internal frame pack for extreme expedition logistics.</p>
+                            <a href="product-details.html" class="btn btn-primary" style="margin-top: auto;">Rent
+                                Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script>
+        lucide.createIcons();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.getElementById('catalogGrid');
+            const cards = document.querySelectorAll('.product-card');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const categoryParam = urlParams.get('category');
+
+            if (categoryParam) {
+                filterProducts(categoryParam);
+                updateActiveBtn(categoryParam);
+            }
+
+            filterBtns.forEach(btn => {
+                btn.onclick = (e) => {
+                    e.preventDefault();
+                    const filter = btn.getAttribute('data-filter');
+                    filterProducts(filter);
+                    updateActiveBtn(filter);
+
+                    const newUrl = filter === 'all' ? 'products.html' : `products.html?category=${filter}`;
+                    window.history.pushState({ path: newUrl }, '', newUrl);
+                };
+            });
+
+            function filterProducts(category) {
+                cards.forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+
+            function updateActiveBtn(category) {
+                filterBtns.forEach(btn => {
+                    if (btn.getAttribute('data-filter') === category) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
