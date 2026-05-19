@@ -1,24 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services | TAIGA</title>
+    <title>Operational Services | TAIGA</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        /* --- Hero Section --- */
         .services-hero {
-            padding: 200px 0 100px;
-            background: var(--bg-secondary);
+            position: relative;
+            padding: 220px 0 120px;
+            background: linear-gradient(to bottom, rgba(10,10,10,0.85), rgba(10,10,10,1)), url('https://images.unsplash.com/photo-1542382156909-92500fa25e68?auto=format&fit=crop&q=80&w=1920');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             text-align: center;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255,180,0,0.2);
         }
 
+        .hero-hud-grid {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 180, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 180, 0, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .services-hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* --- Tactical Modules (2x2 Grid) --- */
         .tactical-module-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-top: -80px;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2.5rem;
+            margin-top: -60px;
             position: relative;
             z-index: 10;
         }
@@ -26,78 +50,93 @@
         .tactical-module {
             background: var(--bg-secondary);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border-color);
-            padding: 40px;
-            border-radius: var(--radius-lg);
+            padding: 50px;
+            border-radius: var(--radius-md);
             transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
             display: flex;
             flex-direction: column;
-            gap: 2rem;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
 
-        .tactical-module::after {
+        .tactical-module::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
+            top: 0; left: 0; width: 4px; height: 100%;
             background: var(--accent-gold);
-            transform: scaleX(0);
-            transform-origin: left;
+            transform: scaleY(0);
+            transform-origin: top;
             transition: transform 0.5s ease;
         }
 
         .tactical-module:hover {
-            border-color: var(--accent-gold);
-            transform: translateY(-10px);
-            background: var(--bg-tertiary);
+            border-color: rgba(255, 180, 0, 0.4);
+            transform: translateY(-5px);
         }
 
-        .tactical-module:hover::after {
-            transform: scaleX(1);
+        .tactical-module:hover::before {
+            transform: scaleY(1);
+        }
+
+        .module-bg-icon {
+            position: absolute;
+            bottom: -20px; right: -20px;
+            width: 150px; height: 150px;
+            color: var(--accent-gold);
+            opacity: 0.03;
+            transform: rotate(-15deg);
+            transition: 0.5s ease;
+            pointer-events: none;
+        }
+
+        .tactical-module:hover .module-bg-icon {
+            opacity: 0.08;
+            transform: rotate(0deg) scale(1.1);
         }
 
         .module-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 2rem;
         }
 
         .module-index {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 800;
             color: var(--accent-gold);
-            letter-spacing: 2px;
-            padding: 5px 12px;
+            letter-spacing: 3px;
+            padding: 6px 14px;
             background: rgba(255, 180, 0, 0.1);
-            border-radius: 4px;
+            border: 1px solid rgba(255, 180, 0, 0.3);
+            border-radius: 2px;
+            text-transform: uppercase;
         }
 
         .module-icon {
-            width: 40px;
-            height: 40px;
             color: var(--text-secondary);
             transition: 0.5s ease;
         }
 
         .tactical-module:hover .module-icon {
             color: var(--accent-gold);
-            transform: scale(1.1);
         }
 
         .module-body h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
+            color: var(--text-primary);
         }
 
         .module-body p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.6;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
         }
 
         .module-footer {
@@ -107,151 +146,322 @@
             align-items: center;
             font-size: 0.7rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             color: var(--text-muted);
-            padding-top: 20px;
-            border-top: 1px solid var(--border-color);
+            padding-top: 25px;
+            border-top: 1px dashed rgba(255,255,255,0.1);
         }
 
-        .process-step {
+        /* --- Mission Protocol Pipeline --- */
+        .protocol-section {
+            padding: 140px 0;
+            background: var(--bg-primary);
+            position: relative;
+        }
+
+        .pipeline-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .pipeline-line {
+            position: absolute;
+            top: 0; bottom: 0; left: 50px;
+            width: 2px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .protocol-step {
             display: flex;
-            gap: 3rem;
+            gap: 4rem;
+            margin-bottom: 5rem;
+            position: relative;
+            align-items: flex-start;
+        }
+
+        .protocol-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-node {
+            width: 100px;
+            height: 100px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
             align-items: center;
-            margin-bottom: 6rem;
-        }
-
-        .process-step:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-
-        .step-number {
+            justify-content: center;
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 8rem;
-            line-height: 1;
-            font-weight: 700;
-            color: transparent;
-            -webkit-text-stroke: 1px var(--text-primary);
-            opacity: 0.15;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--accent-gold);
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            flex-shrink: 0;
             transition: var(--transition);
         }
 
-        .process-step:hover .step-number {
-            opacity: 0.3;
-            color: rgba(255, 180, 0, 0.05);
-            -webkit-text-stroke-color: var(--accent-gold);
+        .protocol-step:hover .step-node {
+            border-color: var(--accent-gold);
+            background: rgba(255, 180, 0, 0.1);
+            box-shadow: 0 0 40px rgba(255, 180, 0, 0.2);
+            transform: scale(1.05);
         }
 
-        @media (max-width: 768px) {
-            .process-step { flex-direction: column; text-align: center; gap: 1.5rem; }
-            .process-step:nth-child(even) { flex-direction: column; }
-            .step-number { font-size: 4rem; }
+        .step-content {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            border-radius: var(--radius-md);
+            flex: 1;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .step-content::before {
+            content: '';
+            position: absolute;
+            top: 40px; left: -15px;
+            width: 30px; height: 30px;
+            background: var(--bg-secondary);
+            border-left: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            transform: rotate(45deg);
+        }
+
+        .protocol-step:hover .step-content {
+            border-color: rgba(255, 180, 0, 0.3);
+        }
+        .protocol-step:hover .step-content::before {
+            border-color: rgba(255, 180, 0, 0.3);
+        }
+
+        .step-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .step-content p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* --- Diagnostics Feature --- */
+        .diagnostics-section {
+            background: linear-gradient(90deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            padding: 100px 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .diag-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .diag-image {
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            border: 1px dashed var(--accent-gold);
+            padding: 20px;
+            position: relative;
+            animation: spin 60s linear infinite;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .diag-image img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            animation: spin 60s linear infinite reverse;
+            filter: grayscale(100%);
+        }
+
+        /* --- CTA --- */
+        .cta-section {
+            padding: 120px 0;
+            text-align: center;
+            background: url('https://images.unsplash.com/photo-1519092496739-93976378eeb1?auto=format&fit=crop&q=80&w=1920');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 992px) {
+            .tactical-module-grid { grid-template-columns: 1fr; }
+            .diag-grid { grid-template-columns: 1fr; gap: 3rem; text-align: center; }
+            .protocol-step { flex-direction: column; gap: 2rem; align-items: center; }
+            .pipeline-line { display: none; }
+            .step-content::before { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <main>
-        <!-- Page Banner -->
-        <section class="page-banner" style="background-image: url('https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&q=80&w=1920');">
-            <div class="container">
-                <h4 class="font-heading" style="color: var(--accent-gold); letter-spacing: 4px; margin-bottom: 1.5rem;">Beyond Equipment</h4>
-                <h1>Mission Support.</h1>
-                <p style="max-width: 600px; margin: 0 auto; color: var(--text-secondary); font-size: 1.1rem;">From logistical support to technical training, TAIGA is your partner in the wild.</p>
-            </div>
-        </section>
+    <!-- Header -->
+    <section class="services-hero">
+        <div class="hero-hud-grid"></div>
+        <div class="container">
+            <h4 class="font-heading" style="color: var(--accent-gold); letter-spacing: 5px; margin-bottom: 1.5rem; text-transform: uppercase;">Beyond Hardware</h4>
+            <h1 class="font-heading" style="font-size: clamp(3.5rem, 8vw, 6rem); line-height: 1; margin-bottom: 1rem; color: white;">Mission Support.</h1>
+            <p style="max-width: 650px; margin: 0 auto; color: rgba(255,255,255,0.8); font-size: 1.2rem; line-height: 1.6;">Comprehensive logistical integration, technical onboarding, and field extraction services for professional deployments.</p>
+        </div>
+    </section>
 
-        <section class="section">
+    <main>
+        <!-- Service Modules -->
+        <section class="section" style="padding-top: 0;">
             <div class="container">
                 <div class="tactical-module-grid">
                     <!-- Module 01 -->
                     <div class="tactical-module">
+                        <i data-lucide="truck" class="module-bg-icon"></i>
                         <div class="module-header">
-                            <span class="module-index">M-01</span>
-                            <i data-lucide="truck" class="module-icon"></i>
+                            <span class="module-index">SV-01</span>
+                            <i data-lucide="truck" class="module-icon" size="32"></i>
                         </div>
                         <div class="module-body">
-                            <h3 class="font-heading">Field Logistics</h3>
-                            <p>We handle the heavy lifting. Equipment delivery and retrieval at designated trailheads across the northern territory.</p>
+                            <h3 class="font-heading">Basecamp Logistics</h3>
+                            <p>We manage the heavy transport. Our fleet delivers crated equipment directly to designated trailheads or helipads, and executes extraction upon mission completion.</p>
                         </div>
                         <div class="module-footer">
                             <span>Status: Operational</span>
-                            <i data-lucide="chevron-right"></i>
+                            <i data-lucide="crosshair" size="14" style="color: var(--accent-gold);"></i>
                         </div>
                     </div>
 
                     <!-- Module 02 -->
                     <div class="tactical-module">
+                        <i data-lucide="map" class="module-bg-icon"></i>
                         <div class="module-header">
-                            <span class="module-index">M-02</span>
-                            <i data-lucide="map" class="module-icon"></i>
+                            <span class="module-index">SV-02</span>
+                            <i data-lucide="map" class="module-icon" size="32"></i>
                         </div>
                         <div class="module-body">
                             <h3 class="font-heading">Strategic Mapping</h3>
-                            <p>Custom itineraries, topographical insights, and seasonal safety advice for your specific mission profile.</p>
+                            <p>Custom topographical analyses, seasonal safety risk assessments, and secure route plotting tailored precisely to your operational objectives and team size.</p>
                         </div>
                         <div class="module-footer">
                             <span>Status: Operational</span>
-                            <i data-lucide="chevron-right"></i>
+                            <i data-lucide="crosshair" size="14" style="color: var(--accent-gold);"></i>
                         </div>
                     </div>
 
                     <!-- Module 03 -->
                     <div class="tactical-module">
+                        <i data-lucide="shield-check" class="module-bg-icon"></i>
                         <div class="module-header">
-                            <span class="module-index">M-03</span>
-                            <i data-lucide="shield-check" class="module-icon"></i>
+                            <span class="module-index">SV-03</span>
+                            <i data-lucide="shield-check" class="module-icon" size="32"></i>
                         </div>
                         <div class="module-body">
                             <h3 class="font-heading">Technical Briefing</h3>
-                            <p>Rapid-onboarding sessions on equipment maintenance, cold-weather survival, and advanced navigation.</p>
+                            <p>Mandatory rapid-onboarding sessions prior to deployment. We cover extreme-weather shelter erection, fuel management, and emergency hardware repairs.</p>
                         </div>
                         <div class="module-footer">
                             <span>Status: Operational</span>
-                            <i data-lucide="chevron-right"></i>
+                            <i data-lucide="crosshair" size="14" style="color: var(--accent-gold);"></i>
+                        </div>
+                    </div>
+
+                    <!-- Module 04 -->
+                    <div class="tactical-module">
+                        <i data-lucide="microscope" class="module-bg-icon"></i>
+                        <div class="module-header">
+                            <span class="module-index">SV-04</span>
+                            <i data-lucide="microscope" class="module-icon" size="32"></i>
+                        </div>
+                        <div class="module-body">
+                            <h3 class="font-heading">Sanitation & Diagnostics</h3>
+                            <p>Post-extraction, every item undergoes a rigorous 14-point structural diagnostic and UV sanitation protocol. We guarantee zero compromise on integrity.</p>
+                        </div>
+                        <div class="module-footer">
+                            <span>Status: Operational</span>
+                            <i data-lucide="crosshair" size="14" style="color: var(--accent-gold);"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Process Section -->
-        <section class="section" style="background: var(--bg-secondary);">
+        <!-- Pipeline Section -->
+        <section class="protocol-section">
             <div class="container">
-                <h2 class="font-heading" style="text-align: center; margin-bottom: 6rem;">Our Mission Protocol</h2>
+                <div style="text-align: center; margin-bottom: 6rem;">
+                    <h4 class="font-heading" style="color: var(--accent-gold); letter-spacing: 4px; margin-bottom: 1rem; text-transform: uppercase;">Standard Operating Procedure</h4>
+                    <h2 class="font-heading" style="font-size: clamp(2rem, 5vw, 3.5rem);">Mission Protocol.</h2>
+                </div>
                 
-                <div class="process-step">
-                    <div class="step-number">01</div>
-                    <div style="flex: 1;">
-                        <h3 class="font-heading" style="font-size: 2rem; margin-bottom: 1rem;">Inventory Selection</h3>
-                        <p style="color: var(--text-secondary); font-size: 1.1rem;">Browse our elite catalog of technical gear. Select the modules that match your mission profile and duration.</p>
-                    </div>
-                </div>
+                <div class="pipeline-container">
+                    <div class="pipeline-line"></div>
 
-                <div class="process-step">
-                    <div class="step-number">02</div>
-                    <div style="flex: 1;">
-                        <h3 class="font-heading" style="font-size: 2rem; margin-bottom: 1rem;">Briefing & Pickup</h3>
-                        <p style="color: var(--text-secondary); font-size: 1.1rem;">Visit our basecamp for a technical briefing. We ensure you understand every piece of equipment before you cross the threshold.</p>
+                    <div class="protocol-step">
+                        <div class="step-node">01</div>
+                        <div class="step-content">
+                            <h3 class="font-heading">Asset Requisition</h3>
+                            <p>Submit your operational parameters via our digital portal. Our algorithms will suggest the optimal gear loadout, which is then verified by a human logistics agent.</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="process-step">
-                    <div class="step-number">03</div>
-                    <div style="flex: 1;">
-                        <h3 class="font-heading" style="font-size: 2rem; margin-bottom: 1rem;">Field Execution</h3>
-                        <p style="color: var(--text-secondary); font-size: 1.1rem;">Take the gear into the wild. Our 24/7 support line remains open for emergency logistics and technical advice.</p>
+                    <div class="protocol-step">
+                        <div class="step-node">02</div>
+                        <div class="step-content">
+                            <h3 class="font-heading">Briefing & Deployment</h3>
+                            <p>Report to the designated TAIGA depot. Your team will undergo a mandatory technical briefing while our staff loads the sanitized hardware into your transport.</p>
+                        </div>
+                    </div>
+
+                    <div class="protocol-step">
+                        <div class="step-node">03</div>
+                        <div class="step-content">
+                            <h3 class="font-heading">Field Execution</h3>
+                            <p>Commence operations. You are backed by our 24/7 emergency comms line. If a critical component fails, a rapid replacement is dispatched within 12 hours.</p>
+                        </div>
+                    </div>
+
+                    <div class="protocol-step">
+                        <div class="step-node">04</div>
+                        <div class="step-content">
+                            <h3 class="font-heading">Extraction & Diagnostics</h3>
+                            <p>Return the hardware to the depot. We process the extraction and immediately begin our 14-point structural integrity diagnostic on all returned assets.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Call to Action -->
-        <section class="section" style="text-align: center;">
-            <div class="container">
-                <h2 class="font-heading" style="font-size: 3rem; margin-bottom: 2rem;">Ready To Deploy?</h2>
+        <section class="cta-section">
+            <div class="container cta-content">
+                <i data-lucide="radio" size="48" style="color: var(--accent-gold); margin-bottom: 20px;"></i>
+                <h2 class="font-heading" style="font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1.5rem; line-height: 1.1;">Ready To Initiate?</h2>
+                <p style="color: var(--text-secondary); font-size: 1.2rem; margin-bottom: 3rem;">Secure your assets today. Our logistics grid is awaiting your coordinates.</p>
                 <div class="flex justify-center gap-2">
-                    <a href="products.html" class="btn btn-primary">Browse Equipment</a>
-                    <a href="contact.html" class="btn btn-outline">Consult An Expert</a>
+                    <a href="products.html" class="btn btn-primary" style="padding: 18px 40px; font-size: 1.1rem; letter-spacing: 2px;">ACCESS ARSENAL</a>
+                    <a href="contact.html" class="btn btn-outline" style="padding: 18px 40px; font-size: 1.1rem; letter-spacing: 2px;">CONSULT COMMAND</a>
                 </div>
             </div>
         </section>

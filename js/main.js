@@ -43,12 +43,13 @@ function initLayout() {
                 <button class="theme-toggle mobile-only-toggle" onclick="toggleTheme()">
                     <i data-lucide="sun"></i>
                 </button>
-                <a href="index.html" data-index="01">Home</a>
-                <a href="services.html" data-index="02">Services</a>
-                <a href="products.html" data-index="03">Products</a>
-                <a href="about.html" data-index="04">About</a>
-                <a href="blog.html" data-index="05">Blog</a>
-                <a href="contact.html" data-index="06">Contact</a>
+                <a href="index.html" data-index="01">Home 1</a>
+                <a href="home2.html" data-index="02">Home 2</a>
+                <a href="services.html" data-index="03">Services</a>
+                <a href="products.html" data-index="04">Products</a>
+                <a href="about.html" data-index="05">About</a>
+                <a href="blog.html" data-index="06">Blog</a>
+                <a href="contact.html" data-index="07">Contact</a>
                 
                 <div class="mobile-footer">
                     <div class="mobile-socials">

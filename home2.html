@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAIGA | Professional Outfitting</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Redesigned Hero Section */
+        .hero-profession {
+            background-image: url('https://images.unsplash.com/photo-1510312305653-8ed496efae75?auto=format&fit=crop&q=80&w=1920');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            text-align: center;
+            padding-top: 150px;
+        }
+
+        .hero-profession::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(10,10,10,0.7) 0%, rgba(10,10,10,0.95) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: white;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        .hero-title .highlight {
+            color: var(--accent-gold);
+        }
+
+        /* --- Professions Grid --- */
+        .professions-section {
+            padding: 80px 0 120px;
+            background: var(--bg-primary);
+        }
+
+        .professions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .profession-card {
+            position: relative;
+            aspect-ratio: 16/10;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            transition: var(--transition);
+        }
+
+        .profession-image {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+            filter: grayscale(80%) brightness(0.6);
+            transition: transform 1s ease, filter 0.5s ease;
+        }
+
+        .profession-card:hover .profession-image {
+            transform: scale(1.05);
+            filter: grayscale(0%) brightness(0.4);
+        }
+
+        .profession-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            background: linear-gradient(transparent 30%, rgba(0,0,0,0.95) 100%);
+            z-index: 2;
+        }
+
+        .profession-badge {
+            align-self: flex-start;
+            padding: 5px 12px;
+            background: rgba(255,180,0,0.2);
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: auto;
+            backdrop-filter: blur(5px);
+        }
+
+        .profession-title {
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 10px;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .profession-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: var(--transition);
+            transition-delay: 0.1s;
+        }
+
+        .profession-gear-list {
+            display: flex;
+            gap: 15px;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: var(--transition);
+            transition-delay: 0.2s;
+        }
+
+        .gear-pill {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .profession-card:hover .profession-title,
+        .profession-card:hover .profession-desc,
+        .profession-card:hover .profession-gear-list {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Form */
+        .professional-lead-section {
+            background: var(--bg-secondary);
+            position: relative;
+            padding: 100px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .lead-form-container {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 50px;
+            box-shadow: var(--shadow-lg);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .input-box {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-box label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .prof-input {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            color: white;
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            width: 100%;
+            transition: var(--transition);
+        }
+
+        .prof-input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 10px rgba(255, 180, 0, 0.1);
+        }
+
+        textarea.prof-input {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        @media (max-width: 992px) {
+            .professions-grid { grid-template-columns: 1fr; }
+            .form-grid { grid-template-columns: 1fr; }
+            .lead-form-container { padding: 30px; }
+            .profession-card { aspect-ratio: auto; height: 400px; }
+            .profession-desc, .profession-gear-list { opacity: 1; transform: translateY(0); }
+            .profession-title { transform: translateY(0); }
+            .profession-image { filter: grayscale(50%) brightness(0.4); }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-profession">
+            <div class="container hero-content">
+                <h4 class="font-heading" style="color: var(--accent-gold); letter-spacing: 4px; margin-bottom: 1rem;">TAIGA OUTFITTING</h4>
+                <h1 class="hero-title">
+                    Gear Engineered For <br>
+                    <span class="highlight">Your Profession.</span>
+                </h1>
+                <p style="font-size: 1.15rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 30px;">
+                    Whether you are capturing wildlife on film, conducting geological research, or running tactical rescue operations, we provide the specialized equipment your profession demands.
+                </p>
+                <a href="#quote-section" class="btn btn-primary" style="padding: 15px 35px; font-size: 1rem; letter-spacing: 2px;">REQUEST PROFESSIONAL LOADOUT</a>
+            </div>
+        </section>
+
+        <!-- Professions Grid Section -->
+        <section class="professions-section">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 4rem;">
+                    <h2 class="font-heading" style="font-size: 2.5rem; margin-bottom: 10px;">Select Your Field</h2>
+                    <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">We have developed standardized gear protocols tailored specifically to the unique logistical requirements of the following professions.</p>
+                </div>
+
+                <div class="professions-grid">
+                    <!-- Profession 1 -->
+                    <div class="profession-card">
+                        <img src="assets/sar_image.png" alt="Search and Rescue" class="profession-image">
+                        <div class="profession-overlay">
+                            <span class="profession-badge">First Responders</span>
+                            <h3 class="font-heading profession-title">Search & Rescue (SAR)</h3>
+                            <p class="profession-desc">High-visibility, structural load-bearing equipment designed for rapid deployment and extraction in critical alpine emergencies.</p>
+                            <div class="profession-gear-list">
+                                <div class="gear-pill"><i data-lucide="backpack" size="14"></i> Expedition Packs</div>
+                                <div class="gear-pill"><i data-lucide="tent" size="14"></i> Base Tents</div>
+                                <div class="gear-pill"><i data-lucide="radio" size="14"></i> Comms Gear</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profession 2 -->
+                    <div class="profession-card">
+                        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=1000" alt="Geological Research" class="profession-image">
+                        <div class="profession-overlay">
+                            <span class="profession-badge">Scientific Expeditions</span>
+                            <h3 class="font-heading profession-title">Geological Research</h3>
+                            <p class="profession-desc">Long-duration basecamp logistics, heavy-duty TPU storage for sensitive instruments, and subzero survival systems for extended studies.</p>
+                            <div class="profession-gear-list">
+                                <div class="gear-pill"><i data-lucide="flame" size="14"></i> Reactor Stoves</div>
+                                <div class="gear-pill"><i data-lucide="snowflake" size="14"></i> SubZero Systems</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profession 3 -->
+                    <div class="profession-card">
+                        <img src="assets/filmmaker_image.png" alt="Wilderness Filmmakers" class="profession-image">
+                        <div class="profession-overlay">
+                            <span class="profession-badge">Media Production</span>
+                            <h3 class="font-heading profession-title">Wilderness Filmmakers</h3>
+                            <p class="profession-desc">Weather-sealed transit modules and anatomical load-haulers specifically configured for safely transporting delicate camera rigs over rough terrain.</p>
+                            <div class="profession-gear-list">
+                                <div class="gear-pill"><i data-lucide="camera" size="14"></i> Padded Duffels</div>
+                                <div class="gear-pill"><i data-lucide="battery-charging" size="14"></i> Solar Arrays</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profession 4 -->
+                    <div class="profession-card">
+                        <img src="assets/tactical_image.png" alt="Tactical Operations" class="profession-image">
+                        <div class="profession-overlay">
+                            <span class="profession-badge">Military & Security</span>
+                            <h3 class="font-heading profession-title">Tactical Operations</h3>
+                            <p class="profession-desc">Strictly MIL-SPEC, IR-compliant, low-profile gear for covert exercises, survival training, and specialized security deployments.</p>
+                            <div class="profession-gear-list">
+                                <div class="gear-pill"><i data-lucide="crosshair" size="14"></i> Mission Packs</div>
+                                <div class="gear-pill"><i data-lucide="moon" size="14"></i> Bivy Shelters</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Form Section -->
+        <section id="quote-section" class="professional-lead-section">
+            <div class="container">
+                <div class="lead-form-container">
+                    <div style="text-align: center; margin-bottom: 40px;">
+                        <i data-lucide="clipboard-check" size="48" style="color: var(--accent-gold); margin-bottom: 15px;"></i>
+                        <h2 class="font-heading" style="font-size: 2.2rem;">Request Professional Outfitting</h2>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Submit your mission parameters. Our logistics team builds custom kits based on your profession.</p>
+                    </div>
+
+                    <form onsubmit="submitLead(event)">
+                        <div class="form-grid">
+                            <div class="input-box">
+                                <label>Your Profession / Field</label>
+                                <select class="prof-input" required>
+                                    <option value="" disabled selected>Select Profession...</option>
+                                    <option value="sar">Search & Rescue</option>
+                                    <option value="research">Scientific Research</option>
+                                    <option value="film">Media / Filmmaking</option>
+                                    <option value="tactical">Military / Tactical</option>
+                                    <option value="other">Other / General Guide</option>
+                                </select>
+                            </div>
+                            <div class="input-box">
+                                <label>Team Size</label>
+                                <input type="number" class="prof-input" required placeholder="e.g. 12" min="1">
+                            </div>
+                        </div>
+                        <div class="form-grid">
+                            <div class="input-box">
+                                <label>Professional Email</label>
+                                <input type="email" class="prof-input" required placeholder="name@organization.com">
+                            </div>
+                            <div class="input-box">
+                                <label>Direct Comm Line</label>
+                                <input type="tel" class="prof-input" required placeholder="+1 (555) 000-0000">
+                            </div>
+                        </div>
+                        <div class="input-box" style="margin-bottom: 20px;">
+                            <label>Mission Parameters</label>
+                            <textarea class="prof-input" required placeholder="Describe your deployment location, duration, and the specific hazards your profession faces..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 18px; font-size: 1.1rem; letter-spacing: 2px;">
+                            SUBMIT REQUISITION
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/products.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        function submitLead(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            btn.innerHTML = `<i data-lucide="check-circle" style="display:inline-block; vertical-align:middle; margin-right:8px;"></i> REQUISITION RECEIVED`;
+            btn.style.backgroundColor = "#4ade80";
+            btn.style.color = "black";
+            lucide.createIcons();
+            
+            setTimeout(() => {
+                alert("Thank you. A TAIGA Logistics Coordinator specializing in your profession will contact you shortly.");
+                e.target.reset();
+                btn.innerHTML = "SUBMIT REQUISITION";
+                btn.style.backgroundColor = "";
+                btn.style.color = "";
+            }, 500);
+        }
+    </script>
+</body>
+
+</html>

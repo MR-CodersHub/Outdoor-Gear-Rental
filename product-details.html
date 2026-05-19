@@ -1,69 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gear Details | RANGER Tactical</title>
+    <title>Gear Protocol | TAIGA</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        :root {
-            --panel-bg: rgba(20, 20, 20, 0.95);
+        /* Premium Page Styles */
+        body {
+            background-image: radial-gradient(circle at 50% 0%, rgba(255, 180, 0, 0.03) 0%, transparent 70%);
         }
-        [data-theme="light"] {
-            --panel-bg: rgba(255, 255, 255, 0.95);
+
+        .breadcrumb {
+            margin-top: 120px;
+            margin-bottom: 20px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .breadcrumb a {
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent-gold);
         }
 
         .product-details-container {
             display: grid;
-            grid-template-columns: 1.2fr 1fr;
+            grid-template-columns: 1fr 450px;
             gap: 4rem;
-            padding-top: 140px;
             padding-bottom: 100px;
         }
 
         /* --- Gallery Section --- */
         .gallery-section {
             position: sticky;
-            top: 120px;
+            top: 100px;
         }
 
-        .main-image-container {
-            width: 100%;
-            aspect-ratio: 1/1;
+        .main-image-wrapper {
+            position: relative;
+            aspect-ratio: 4/3;
             background: var(--bg-secondary);
             border-radius: var(--radius-lg);
             border: 1px solid var(--border-color);
             overflow: hidden;
-            position: relative;
+            box-shadow: var(--shadow-lg);
             margin-bottom: 1.5rem;
         }
 
-        .main-image-container img {
+        .main-image-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.5) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .main-image-wrapper img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        .availability-badge {
+        .main-image-wrapper:hover img {
+            transform: scale(1.05);
+        }
+
+        .status-badge {
             position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(0, 0, 0, 0.8);
+            top: 25px;
+            left: 25px;
+            background: rgba(15, 15, 15, 0.8);
             backdrop-filter: blur(10px);
-            padding: 8px 15px;
-            border-radius: 50px;
+            padding: 8px 16px;
+            border-radius: 4px;
             font-size: 0.75rem;
             font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: white;
             display: flex;
             align-items: center;
             gap: 8px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 180, 0, 0.3);
             z-index: 2;
         }
 
-        .status-dot {
+        .status-badge .dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
@@ -84,11 +119,17 @@
             overflow: hidden;
             cursor: pointer;
             transition: var(--transition);
-            opacity: 0.6;
+            opacity: 0.5;
+            background: var(--bg-tertiary);
         }
 
         .thumb-item.active {
             border-color: var(--accent-gold);
+            opacity: 1;
+            box-shadow: 0 0 15px rgba(255, 180, 0, 0.2);
+        }
+
+        .thumb-item:hover {
             opacity: 1;
         }
 
@@ -98,88 +139,100 @@
             object-fit: cover;
         }
 
-        /* --- Booking Panel --- */
+        /* --- Technical Details --- */
+        .tech-briefing {
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* --- Right Booking Panel --- */
         .booking-panel {
-            background: var(--panel-bg);
+            background: var(--bg-secondary);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
             padding: 40px;
+            box-shadow: var(--shadow-lg);
+            height: fit-content;
             position: sticky;
-            top: 120px;
+            top: 100px;
         }
 
-        .category-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            background: rgba(255, 180, 0, 0.1);
-            color: var(--accent-gold);
-            font-size: 0.7rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border-radius: 4px;
-            margin-bottom: 1.5rem;
+        .booking-panel h1 {
+            font-size: 2.2rem;
+            margin: 10px 0;
+            line-height: 1.1;
         }
 
         .price-display {
             display: flex;
             align-items: baseline;
-            gap: 10px;
-            margin: 2rem 0;
+            gap: 8px;
+            margin: 1.5rem 0 2.5rem;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .price-display .amount {
-            font-size: 3rem;
+            font-size: 2.5rem;
+            font-family: 'Space Grotesk', sans-serif;
             font-weight: 800;
-            color: var(--text-primary);
-            line-height: 1;
+            color: var(--accent-gold);
         }
 
         .price-display .unit {
             color: var(--text-muted);
-            font-size: 1.2rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .calendar-section {
-            margin: 2rem 0;
-            padding: 25px;
-            background: rgba(255,255,255,0.03);
+        /* Deployment Calendar */
+        .section-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .calendar-box {
+            background: var(--bg-primary);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
-        }
-
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
+            padding: 20px;
+            margin-bottom: 25px;
         }
 
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 8px;
+            gap: 6px;
             text-align: center;
         }
 
-        .calendar-day-label {
+        .day-label {
             font-size: 0.65rem;
             color: var(--text-muted);
             font-weight: 700;
             text-transform: uppercase;
+            padding-bottom: 5px;
         }
 
         .day-cell {
-            padding: 10px 0;
+            padding: 8px 0;
             font-size: 0.85rem;
             border-radius: 4px;
             cursor: pointer;
-            transition: 0.2s;
+            transition: var(--transition);
             color: var(--text-secondary);
+            border: 1px solid transparent;
         }
 
         .day-cell:hover:not(.disabled) {
-            background: var(--bg-tertiary);
+            border-color: var(--accent-gold);
             color: var(--text-primary);
         }
 
@@ -190,392 +243,318 @@
         }
 
         .day-cell.range {
-            background: rgba(255, 180, 0, 0.2) !important;
+            background: rgba(255, 180, 0, 0.15) !important;
             color: var(--accent-gold) !important;
         }
 
         .day-cell.disabled {
             opacity: 0.2;
             cursor: not-allowed;
+            text-decoration: line-through;
         }
 
-        .location-picker {
-            margin-bottom: 2rem;
+        /* Inputs */
+        .form-group {
+            margin-bottom: 20px;
         }
 
-        .location-select {
+        .form-control {
             width: 100%;
-            background: var(--bg-secondary);
+            background: var(--bg-primary);
             border: 1px solid var(--border-color);
-            padding: 15px;
+            padding: 14px 20px;
             color: var(--text-primary);
             border-radius: var(--radius-md);
             font-family: inherit;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-gold);
+            outline: none;
+            box-shadow: 0 0 0 1px var(--accent-gold);
+        }
+
+        select.form-control {
             appearance: none;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ffb400' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: right 15px center;
-            background-size: 18px;
+            background-size: 16px;
             cursor: pointer;
         }
 
-        /* --- Tech Specs --- */
-        .specs-section {
-            margin-top: 6rem;
-            border-top: 1px solid var(--border-color);
-            padding-top: 4rem;
-        }
-
-        .specs-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .spec-card {
-            background: var(--bg-secondary);
-            padding: 30px;
+        .waiver-box {
+            background: rgba(255, 180, 0, 0.03);
+            border: 1px dashed rgba(255, 180, 0, 0.3);
+            padding: 20px;
             border-radius: var(--radius-md);
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+
+        .waiver-box input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--accent-gold);
+            cursor: pointer;
+            margin-top: 2px;
+        }
+
+        .summary-box {
+            padding: 20px;
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+            margin-bottom: 25px;
             border: 1px solid var(--border-color);
+        }
+
+        /* Specs Grid */
+        .specs-display {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .spec-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: var(--radius-md);
             text-align: center;
+            transition: var(--transition);
         }
 
-        .spec-card i {
+        .spec-item:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .spec-item i {
             color: var(--accent-gold);
-            margin-bottom: 1.5rem;
+            margin-bottom: 15px;
         }
 
-        .spec-card span {
-            display: block;
-            font-size: 0.75rem;
+        .spec-label {
+            font-size: 0.7rem;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 5px;
+            display: block;
         }
 
-        .spec-card h5 {
+        .spec-value {
             font-size: 1.1rem;
             font-weight: 700;
-        }
-
-        .waiver-area {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border-color);
-            padding: 20px;
-            border-radius: 12px;
-            margin: 2rem 0;
-            display: flex;
-            gap: 15px;
-            align-items: flex-start;
-        }
-
-        .waiver-area input {
-            width: 20px;
-            height: 20px;
-            margin-top: 3px;
-            accent-color: var(--accent-gold);
-            cursor: pointer;
-        }
-
-        /* --- Success Toast --- */
-        .toast-notification {
-            position: fixed;
-            top: 30px;
-            right: 30px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--accent-gold);
-            padding: 25px;
-            border-radius: 12px;
-            z-index: 3000;
-            max-width: 400px;
-            display: none;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-            animation: slideIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        .toast-content {
-            display: flex;
-            gap: 15px;
-            align-items: flex-start;
-        }
-
-        .toast-icon {
-            color: var(--accent-gold);
-            flex-shrink: 0;
-        }
-
-        .contact-inputs-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .input-group label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-        }
-
-        .mission-input {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            padding: 12px 15px;
             color: var(--text-primary);
-            border-radius: var(--radius-md);
-            font-family: inherit;
-            width: 100%;
         }
 
-        .mission-input:focus {
-            border-color: var(--accent-gold);
-            outline: none;
-        }
-
-        /* --- Mobile Styles --- */
-        @media (max-width: 992px) {
+        /* Responsive */
+        @media (max-width: 1024px) {
             .product-details-container {
                 grid-template-columns: 1fr;
-                padding-top: 100px;
             }
-            .mobile-sticky-bar { display: flex !important; }
+            .booking-panel {
+                position: static;
+            }
         }
-
-        .mobile-sticky-bar {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: var(--panel-bg);
-            backdrop-filter: blur(15px);
-            padding: 15px 25px;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid var(--border-color);
-            z-index: 1000;
+        @media (max-width: 600px) {
+            .thumbnail-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
 </head>
 <body class="dark-theme">
 
     <main class="container">
-        <div id="product-content" class="product-details-container">
-             <div style="padding: 100px 0; text-align: center; grid-column: 1 / -1;">
-                <h2 class="font-heading">Initializing Mission Gear...</h2>
-             </div>
+        <!-- Render container -->
+        <div id="product-content">
+            <div style="padding: 100px 0; text-align: center;">
+                <h2 class="font-heading">Loading Protocol...</h2>
+            </div>
         </div>
-
-        <section id="specs-root" class="specs-section">
-            <!-- Dynamic Specs -->
-        </section>
     </main>
 
-    <!-- Success Toast Notification -->
-    <div id="successToast" class="toast-notification">
-        <div class="toast-content">
-            <div class="toast-icon">
-                <i data-lucide="check-circle" size="24"></i>
-            </div>
+    <!-- Success Toast -->
+    <div id="successToast" class="toast-notification" style="position: fixed; top: 30px; right: 30px; background: var(--bg-secondary); border: 1px solid var(--accent-gold); padding: 25px; border-radius: 12px; z-index: 3000; max-width: 400px; display: none; box-shadow: 0 20px 40px rgba(0,0,0,0.6);">
+        <div style="display: flex; gap: 15px;">
+            <i data-lucide="check-circle" size="24" style="color: var(--accent-gold);"></i>
             <div>
-                <h4 class="font-heading" style="color: var(--text-primary); margin-bottom: 5px;">🎉 Mission Confirmed!</h4>
-                <p id="toastMessage" style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4;">
-                    Successfully booked. Our team will contact you shortly at your provided details.
-                </p>
-                <div style="margin-top: 10px; font-size: 0.7rem; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 1px;">
-                    Redirecting to inventory...
-                </div>
+                <h4 class="font-heading" style="color: white; margin-bottom: 5px;">Mission Confirmed!</h4>
+                <p id="toastMessage" style="font-size: 0.85rem; color: var(--text-secondary);"></p>
             </div>
         </div>
     </div>
 
-    <div class="mobile-sticky-bar">
-        <div>
-            <div style="font-size: 1.2rem; font-weight: 800;" id="mobile-price">$0.00</div>
-            <div style="font-size: 0.7rem; color: var(--text-muted);">Est. Deployment Cost</div>
-        </div>
-        <button class="btn btn-primary" onclick="confirmBooking()">Book Now</button>
-    </div>
-
-    <script src="js/products.js"></script>
+    <!-- FORCE BROWSER TO RELOAD PRODUCTS.JS USING CACHE BUSTER ?v=2 -->
+    <script src="js/products.js?v=2"></script>
     <script src="js/main.js"></script>
     <script>
-        // State Management
         let state = {
             product: null,
             startDate: null,
             endDate: null,
-            location: "Basecamp Alpha",
-            waiverSigned: false,
+            location: "basecamp-alpha",
             email: "",
-            phone: ""
+            phone: "",
+            waiver: false
         };
 
         document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const productId = urlParams.get('id');
+            // Safely get product or fallback to the first one in the new array
             state.product = getProductById(productId) || products[0];
 
-            renderPage();
-            lucide.createIcons();
+            renderProduct();
         });
 
         function setState(updates) {
             state = { ...state, ...updates };
-            renderDynamicElements();
+            updateDynamicUI();
         }
 
-        function renderPage() {
+        function renderProduct() {
             const p = state.product;
-            const container = document.getElementById('product-content');
-            
-            container.innerHTML = `
-                <div class="gallery-section">
-                    <div class="main-image-container">
-                        <div class="availability-badge">
-                            <div class="status-dot"></div>
-                            <span>${p.status}</span>
-                        </div>
-                        <img id="main-product-img" src="${p.mainImage}" alt="${p.name}">
-                    </div>
-                    <div class="thumbnail-grid">
-                        ${p.gallery.map((img, i) => `
-                            <div class="thumb-item ${i === 0 ? 'active' : ''}" onclick="updateGallery('${img}', this)">
-                                <img src="${img}" alt="Preview ${i+1}">
+            const content = document.getElementById('product-content');
+
+            content.innerHTML = `
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a> <i data-lucide="chevron-right" size="14"></i>
+                    <a href="products.html">Arsenal</a> <i data-lucide="chevron-right" size="14"></i>
+                    <span style="color: var(--accent-gold);">${p.name}</span>
+                </div>
+
+                <div class="product-details-container">
+                    <!-- Left: Gallery & Briefing -->
+                    <div class="gallery-section">
+                        <div class="main-image-wrapper">
+                            <div class="status-badge">
+                                <div class="dot"></div>
+                                <span>${p.status.split('&')[0].trim()}</span>
                             </div>
-                        `).join('')}
-                    </div>
-
-                    <div style="margin-top: 4rem;">
-                        <h2 class="font-heading" style="font-size: 2.5rem; margin-bottom: 1.5rem;">Deployment Briefing</h2>
-                        <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.1rem;">${p.description}</p>
-                    </div>
-                </div>
-
-                <div class="booking-panel">
-                    <div class="category-badge">${p.category}</div>
-                    <h1 class="font-heading" style="font-size: 2.5rem; margin-bottom: 1rem;">${p.name}</h1>
-                    
-                    <div class="price-display">
-                        <span class="amount">$${p.dailyRate.toFixed(2)}</span>
-                        <span class="unit">/ Day</span>
-                    </div>
-
-                    <div class="calendar-section">
-                        <div class="calendar-header">
-                            <span style="font-weight: 700; font-size: 0.9rem;">Select Deployment Range</span>
+                            <img id="main-product-img" src="${p.mainImage}" alt="${p.name}">
                         </div>
-                        <div class="calendar-grid" id="calendarGrid">
-                            ${['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'].map(d => `<div class="calendar-day-label">${d}</div>`).join('')}
-                            ${Array(31).fill().map((_, i) => {
-                                const day = i + 1;
-                                const isDisabled = day < 12; 
-                                return `<div class="day-cell ${isDisabled ? 'disabled' : ''}" data-day="${day}" onclick="handleDateClick(${day}, ${isDisabled})">${day}</div>`;
-                            }).join('')}
+                        
+                        <div class="thumbnail-grid">
+                            ${p.gallery.map((img, i) => `
+                                <div class="thumb-item ${i === 0 ? 'active' : ''}" onclick="updateGallery('${img}', this)">
+                                    <img src="${img}" alt="Angle ${i+1}">
+                                </div>
+                            `).join('')}
                         </div>
-                        <p style="font-size: 0.7rem; color: var(--text-muted); margin-top: 15px; text-align: center;">Click Start Date, then End Date. Unlimited duration.</p>
-                    </div>
 
-                    <div class="location-picker">
-                        <label style="display: block; font-size: 0.7rem; text-transform: uppercase; margin-bottom: 10px; color: var(--text-muted);">Logistics Hub</label>
-                        <select class="location-select" onchange="setState({location: this.value})">
-                            <option value="Basecamp Alpha">Basecamp Alpha (Central)</option>
-                            <option value="North Depot">North Trailhead Depot</option>
-                            <option value="East Station">Eastern Station</option>
-                        </select>
-                    </div>
+                        <div class="tech-briefing">
+                            <h2 class="font-heading" style="font-size: 2rem; margin-bottom: 20px;">Mission Briefing</h2>
+                            <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8;">
+                                ${p.description}
+                            </p>
+                            
+                            <h3 class="font-heading" style="font-size: 1.2rem; margin: 40px 0 20px; color: var(--accent-gold);">Included in Kit</h3>
+                            <ul style="list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                ${p.includes.map(item => `
+                                    <li style="display: flex; align-items: center; gap: 10px; color: var(--text-primary); font-size: 0.9rem;">
+                                        <i data-lucide="check" size="16" style="color: var(--accent-gold);"></i> ${item}
+                                    </li>
+                                `).join('')}
+                            </ul>
 
-                    <div class="contact-inputs-grid">
-                        <div class="input-group">
-                            <label>Mission Email</label>
-                            <input type="email" class="mission-input" placeholder="Enter email" oninput="setState({email: this.value})">
-                        </div>
-                        <div class="input-group">
-                            <label>Comm Line (Phone)</label>
-                            <input type="tel" class="mission-input" placeholder="Phone number" oninput="setState({phone: this.value})">
+                            <h3 class="font-heading" style="font-size: 1.2rem; margin: 40px 0 20px; color: var(--accent-gold);">Telemetry Specs</h3>
+                            <div class="specs-display">
+                                ${p.specs.map(s => `
+                                    <div class="spec-item">
+                                        <i data-lucide="${s.icon}" size="28"></i>
+                                        <span class="spec-label">${s.label}</span>
+                                        <div class="spec-value">${s.value}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
                         </div>
                     </div>
 
-                    <div class="waiver-area">
-                        <input type="checkbox" id="waiverCheckbox" onchange="setState({waiverSigned: this.checked})">
-                        <label for="waiverCheckbox" style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4;">
-                            I accept the <strong>Mission Liability Waiver</strong>.
-                        </label>
-                    </div>
+                    <!-- Right: Booking Logistics -->
+                    <div>
+                        <div class="booking-panel">
+                            <div style="display: inline-block; padding: 4px 12px; background: rgba(255,180,0,0.1); color: var(--accent-gold); font-size: 0.7rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; border-radius: 4px; margin-bottom: 15px;">
+                                ${p.category}
+                            </div>
+                            
+                            <h1 class="font-heading">${p.name}</h1>
+                            
+                            <div class="price-display">
+                                <span class="amount">$${p.dailyRate.toFixed(2)}</span>
+                                <span class="unit">/ Day</span>
+                            </div>
 
-                    <div id="cost-summary" style="padding: 20px 0; border-top: 1px solid var(--border-color); margin-top: 1rem;">
-                        <!-- Dynamic Cost -->
-                    </div>
+                            <span class="section-label">Deployment Window</span>
+                            <div class="calendar-box">
+                                <div class="calendar-grid">
+                                    ${['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'].map(d => `<div class="day-label">${d}</div>`).join('')}
+                                    ${Array(31).fill().map((_, i) => {
+                                        const day = i + 1;
+                                        const disabled = day < 12; // Example constraints
+                                        return `<div class="day-cell ${disabled ? 'disabled' : ''}" data-day="${day}" onclick="handleDateSelect(${day}, ${disabled})">${day}</div>`;
+                                    }).join('')}
+                                </div>
+                            </div>
 
-                    <button class="btn btn-primary" id="bookBtn" style="width: 100%; padding: 20px; font-size: 1.1rem;" onclick="confirmBooking()">Rent Now</button>
+                            <span class="section-label">Logistics Data</span>
+                            <div class="form-group">
+                                <select class="form-control" onchange="setState({location: this.value})">
+                                    <option value="basecamp-alpha">Basecamp Alpha (Central Hub)</option>
+                                    <option value="north-depot">North Trailhead Depot</option>
+                                    <option value="air-drop">Airdrop Delivery (+$50)</option>
+                                </select>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                                <input type="email" class="form-control" placeholder="Agent Email" oninput="setState({email: this.value})">
+                                <input type="tel" class="form-control" placeholder="Comm Line (Phone)" oninput="setState({phone: this.value})">
+                            </div>
+
+                            <div class="waiver-box">
+                                <input type="checkbox" id="waiverCheck" onchange="setState({waiver: this.checked})">
+                                <label for="waiverCheck" style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; cursor: pointer;">
+                                    I confirm I have read and accept the <strong style="color: var(--accent-gold);">Mission Liability Waiver</strong> and accept responsibility for gear condition.
+                                </label>
+                            </div>
+
+                            <div class="summary-box">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; color: var(--text-secondary);">
+                                    <span>Duration:</span>
+                                    <span id="duration-text" style="color: white; font-weight: 700;">0 Days</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; font-size: 1.5rem; font-weight: 800; font-family: 'Space Grotesk', sans-serif;">
+                                    <span>Total:</span>
+                                    <span id="total-text" style="color: var(--accent-gold);">$0.00</span>
+                                </div>
+                            </div>
+
+                            <button id="submitBtn" class="btn btn-primary" style="width: 100%; padding: 18px; font-size: 1rem; letter-spacing: 2px;" onclick="executeBooking()">
+                                INITIATE RENTAL
+                            </button>
+                        </div>
+                    </div>
                 </div>
             `;
 
-            renderSpecs();
-            renderDynamicElements();
+            lucide.createIcons();
+            updateDynamicUI();
         }
 
-        function renderDynamicElements() {
-            const summary = document.getElementById('cost-summary');
-            const bookBtn = document.getElementById('bookBtn');
-            const { startDate, endDate, product, waiverSigned } = state;
-
-            let duration = 0;
-            if (startDate && endDate) {
-                duration = Math.abs(endDate - startDate) + 1;
-            } else if (startDate) {
-                duration = 1;
-            }
-
-            const total = duration * product.dailyRate;
-
-            summary.innerHTML = `
-                <div class="flex justify-between" style="margin-bottom: 10px;">
-                    <span style="color: var(--text-secondary);">Deployment Duration:</span>
-                    <span style="font-weight: 700;">${duration} Days</span>
-                </div>
-                <div class="flex justify-between" style="font-size: 1.8rem; font-weight: 800;">
-                    <span>Total Due:</span>
-                    <span style="color: var(--accent-gold);">$${total.toFixed(2)}</span>
-                </div>
-            `;
-
-            const mobilePrice = document.getElementById('mobile-price');
-            if (mobilePrice) mobilePrice.innerText = `$${total.toFixed(2)}`;
-
-            const cells = document.querySelectorAll('.day-cell');
-            cells.forEach(cell => {
-                const day = parseInt(cell.dataset.day);
-                cell.classList.remove('selected', 'range');
-                
-                const start = Math.min(state.startDate, state.endDate) || state.startDate;
-                const end = Math.max(state.startDate, state.endDate) || state.endDate;
-
-                if (day === state.startDate || day === state.endDate) cell.classList.add('selected');
-                if (state.startDate && state.endDate && day > start && day < end) {
-                    cell.classList.add('range');
-                }
-            });
-
-            const isFormValid = duration > 0 && waiverSigned && state.email && state.phone;
-            bookBtn.style.opacity = isFormValid ? '1' : '0.5';
+        function updateGallery(src, element) {
+            document.getElementById('main-product-img').src = src;
+            document.querySelectorAll('.thumb-item').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
         }
 
-        function handleDateClick(day, disabled) {
+        function handleDateSelect(day, disabled) {
             if (disabled) return;
             if (!state.startDate || (state.startDate && state.endDate)) {
                 setState({ startDate: day, endDate: null });
@@ -584,62 +563,78 @@
             }
         }
 
-        function confirmBooking() {
-            const { startDate, endDate, product, waiverSigned, location, email, phone } = state;
-            
-            if (!startDate) { alert("PROTOCOL ERROR: Select dates."); return; }
-            if (!email || !phone) { alert("PROTOCOL ERROR: Contact info required."); return; }
-            if (!waiverSigned) { alert("PROTOCOL ERROR: Waiver required."); return; }
+        function updateDynamicUI() {
+            // Update Calendar UI
+            const cells = document.querySelectorAll('.day-cell');
+            cells.forEach(cell => {
+                const d = parseInt(cell.dataset.day);
+                cell.classList.remove('selected', 'range');
+                
+                const start = Math.min(state.startDate, state.endDate) || state.startDate;
+                const end = Math.max(state.startDate, state.endDate) || state.endDate;
 
-            const duration = state.endDate ? (Math.abs(state.endDate - state.startDate) + 1) : 1;
-            
-            // Show Toast
+                if (d === state.startDate || d === state.endDate) cell.classList.add('selected');
+                if (state.startDate && state.endDate && d > start && d < end) {
+                    cell.classList.add('range');
+                }
+            });
+
+            // Calculate Totals
+            let duration = 0;
+            if (state.startDate && state.endDate) {
+                duration = Math.abs(state.endDate - state.startDate) + 1;
+            } else if (state.startDate) {
+                duration = 1;
+            }
+
+            const total = duration * state.product.dailyRate;
+            document.getElementById('duration-text').innerText = duration + (duration === 1 ? ' Day' : ' Days');
+            document.getElementById('total-text').innerText = '$' + total.toFixed(2);
+
+            // Button is always clickable, validation happens on click
+        }
+
+        function executeBooking() {
+            let duration = 0;
+            if (state.startDate && state.endDate) {
+                duration = Math.abs(state.endDate - state.startDate) + 1;
+            } else if (state.startDate) {
+                duration = 1;
+            }
+
+            if (duration === 0) {
+                alert("PROTOCOL ERROR: Please select a deployment window on the calendar.");
+                return;
+            }
+            if (!state.email) {
+                alert("PROTOCOL ERROR: Please provide an Agent Email.");
+                return;
+            }
+            if (!state.phone) {
+                alert("PROTOCOL ERROR: Please provide a Comm Line (Phone number).");
+                return;
+            }
+            if (!state.waiver) {
+                alert("PROTOCOL ERROR: You must accept the Mission Liability Waiver.");
+                return;
+            }
+
             const toast = document.getElementById('successToast');
             const msg = document.getElementById('toastMessage');
             
-            msg.innerHTML = `
-                You are booked! Our team will contact you shortly at <strong>${email}</strong> or <strong>${phone}</strong> to finalize the mission logistics for your <strong>${product.name}</strong>.
-            `;
-            
+            msg.innerHTML = `Logistics for <strong>${state.product.name}</strong> confirmed. Details dispatched to ${state.email}.`;
             toast.style.display = 'block';
-            
-            // Disable interactions
-            document.getElementById('bookBtn').disabled = true;
-            document.getElementById('bookBtn').innerText = "Mission Initiated";
 
-            // Redirect after 3 seconds
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = "DEPLOYMENT CONFIRMED";
+            btn.style.background = "#4ade80";
+            btn.style.color = "black";
+            btn.disabled = true;
+
             setTimeout(() => {
                 window.location.href = 'products.html';
-            }, 3000);
-        }
-
-        function renderSpecs() {
-            const p = state.product;
-            const root = document.getElementById('specs-root');
-            root.innerHTML = `
-                <div class="container">
-                    <h2 class="font-heading" style="text-align: center; margin-bottom: 4rem;">Technical Specifications</h2>
-                    <div class="specs-grid">
-                        ${p.specs.map(spec => `
-                            <div class="spec-card">
-                                <i data-lucide="${spec.icon}" size="32"></i>
-                                <span>${spec.label}</span>
-                                <h5>${spec.value}</h5>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-            lucide.createIcons();
-        }
-
-        function updateGallery(src, thumb) {
-            document.getElementById('main-product-img').src = src;
-            document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('active'));
-            thumb.classList.add('active');
+            }, 3500);
         }
     </script>
-</body>
-</html>
 </body>
 </html>
