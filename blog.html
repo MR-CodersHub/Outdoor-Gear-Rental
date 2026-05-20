@@ -175,6 +175,12 @@
             .journal-post { margin-bottom: 4rem; }
             .journal-excerpt { max-width: 100%; }
         }
+        @media (max-width: 480px) {
+            .page-header h1 { font-size: clamp(2.5rem, 8vw, 4rem) !important; }
+            .journal-meta { flex-direction: column; gap: 0.5rem; }
+            .sidebar-box { padding: 20px; }
+            .promo-box { padding: 20px; }
+        }
     </style>
 </head>
 <body>

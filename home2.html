@@ -39,11 +39,12 @@
         }
 
         .hero-title {
-            font-size: clamp(3rem, 6vw, 4.5rem);
+            font-size: clamp(2rem, 8vw, 4.5rem);
             line-height: 1.1;
             margin-bottom: 20px;
             color: white;
             text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            word-wrap: break-word;
         }
 
         .hero-title .highlight {
@@ -225,6 +226,13 @@
             .profession-desc, .profession-gear-list { opacity: 1; transform: translateY(0); }
             .profession-title { transform: translateY(0); }
             .profession-image { filter: grayscale(50%) brightness(0.4); }
+        }
+        @media (max-width: 480px) {
+            .hero-title { font-size: 2.2rem; }
+            .lead-form-container { padding: 20px; }
+            .profession-title { font-size: 1.5rem; }
+            .profession-overlay { padding: 20px; }
+            .profession-gear-list { flex-wrap: wrap; }
         }
     </style>
 </head>

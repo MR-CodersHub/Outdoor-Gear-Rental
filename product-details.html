@@ -355,18 +355,200 @@
             color: var(--text-primary);
         }
 
+        /* Dynamic JS UI Classes */
+        .briefing-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .briefing-desc {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .briefing-subtitle {
+            font-size: 1.2rem;
+            margin: 40px 0 20px;
+            color: var(--accent-gold);
+        }
+
+        .kit-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .kit-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .kit-item i {
+            color: var(--accent-gold);
+            flex-shrink: 0;
+        }
+
+        .badge-category {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(255,180,0,0.1);
+            color: var(--accent-gold);
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .waiver-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            cursor: pointer;
+        }
+
+        .waiver-label strong {
+            color: var(--accent-gold);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .summary-duration {
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .summary-duration .value {
+            color: white;
+            font-weight: 700;
+        }
+
+        .summary-total {
+            font-size: 1.5rem;
+            font-weight: 800;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .summary-total .value {
+            color: var(--accent-gold);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 1rem;
+            letter-spacing: 2px;
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .product-details-container {
                 grid-template-columns: 1fr;
+                gap: 2.5rem;
             }
             .booking-panel {
                 position: static;
             }
         }
+        @media (max-width: 768px) {
+            .breadcrumb {
+                flex-wrap: wrap;
+                line-height: 1.6;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .kit-list {
+                grid-template-columns: 1fr;
+            }
+            .booking-panel {
+                padding: 25px;
+            }
+            .tech-briefing {
+                margin-top: 3rem;
+                padding-top: 2rem;
+            }
+        }
         @media (max-width: 600px) {
             .thumbnail-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(4, 1fr);
+                gap: 0.5rem;
+            }
+            .briefing-title {
+                font-size: 1.5rem;
+            }
+            .briefing-desc {
+                font-size: 1rem;
+            }
+            .booking-panel h1 {
+                font-size: 1.8rem;
+                word-wrap: break-word;
+            }
+            .price-display .amount {
+                font-size: 2.2rem;
+            }
+            .specs-display {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+            .spec-item {
+                padding: 15px;
+            }
+            .waiver-box {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+        }
+        @media (max-width: 480px) {
+            .product-details-container {
+                gap: 1.5rem;
+            }
+            .thumbnail-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .booking-panel {
+                padding: 20px 15px;
+            }
+            .booking-panel h1 {
+                font-size: 1.5rem;
+            }
+            .price-display .amount {
+                font-size: 1.8rem;
+            }
+            .specs-display {
+                grid-template-columns: 1fr;
+            }
+            .calendar-grid {
+                gap: 2px;
+            }
+            .day-cell {
+                font-size: 0.75rem;
+                padding: 6px 0;
+            }
+            .summary-total {
+                font-size: 1.25rem;
+            }
+            .briefing-subtitle {
+                margin: 25px 0 15px;
             }
         }
     </style>
@@ -452,21 +634,21 @@
                         </div>
 
                         <div class="tech-briefing">
-                            <h2 class="font-heading" style="font-size: 2rem; margin-bottom: 20px;">Mission Briefing</h2>
-                            <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8;">
+                            <h2 class="briefing-title font-heading">Mission Briefing</h2>
+                            <p class="briefing-desc">
                                 ${p.description}
                             </p>
                             
-                            <h3 class="font-heading" style="font-size: 1.2rem; margin: 40px 0 20px; color: var(--accent-gold);">Included in Kit</h3>
-                            <ul style="list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <h3 class="briefing-subtitle font-heading">Included in Kit</h3>
+                            <ul class="kit-list">
                                 ${p.includes.map(item => `
-                                    <li style="display: flex; align-items: center; gap: 10px; color: var(--text-primary); font-size: 0.9rem;">
-                                        <i data-lucide="check" size="16" style="color: var(--accent-gold);"></i> ${item}
+                                    <li class="kit-item">
+                                        <i data-lucide="check" size="16"></i> <span>${item}</span>
                                     </li>
                                 `).join('')}
                             </ul>
 
-                            <h3 class="font-heading" style="font-size: 1.2rem; margin: 40px 0 20px; color: var(--accent-gold);">Telemetry Specs</h3>
+                            <h3 class="briefing-subtitle font-heading">Telemetry Specs</h3>
                             <div class="specs-display">
                                 ${p.specs.map(s => `
                                     <div class="spec-item">
@@ -482,7 +664,7 @@
                     <!-- Right: Booking Logistics -->
                     <div>
                         <div class="booking-panel">
-                            <div style="display: inline-block; padding: 4px 12px; background: rgba(255,180,0,0.1); color: var(--accent-gold); font-size: 0.7rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; border-radius: 4px; margin-bottom: 15px;">
+                            <div class="badge-category">
                                 ${p.category}
                             </div>
                             
@@ -513,30 +695,30 @@
                                     <option value="air-drop">Airdrop Delivery (+$50)</option>
                                 </select>
                             </div>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                            <div class="form-row">
                                 <input type="email" class="form-control" placeholder="Agent Email" oninput="setState({email: this.value})">
                                 <input type="tel" class="form-control" placeholder="Comm Line (Phone)" oninput="setState({phone: this.value})">
                             </div>
 
                             <div class="waiver-box">
                                 <input type="checkbox" id="waiverCheck" onchange="setState({waiver: this.checked})">
-                                <label for="waiverCheck" style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; cursor: pointer;">
-                                    I confirm I have read and accept the <strong style="color: var(--accent-gold);">Mission Liability Waiver</strong> and accept responsibility for gear condition.
+                                <label for="waiverCheck" class="waiver-label">
+                                    I confirm I have read and accept the <strong>Mission Liability Waiver</strong> and accept responsibility for gear condition.
                                 </label>
                             </div>
 
                             <div class="summary-box">
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; color: var(--text-secondary);">
+                                <div class="summary-row summary-duration">
                                     <span>Duration:</span>
-                                    <span id="duration-text" style="color: white; font-weight: 700;">0 Days</span>
+                                    <span id="duration-text" class="value">0 Days</span>
                                 </div>
-                                <div style="display: flex; justify-content: space-between; font-size: 1.5rem; font-weight: 800; font-family: 'Space Grotesk', sans-serif;">
+                                <div class="summary-row summary-total">
                                     <span>Total:</span>
-                                    <span id="total-text" style="color: var(--accent-gold);">$0.00</span>
+                                    <span id="total-text" class="value">$0.00</span>
                                 </div>
                             </div>
 
-                            <button id="submitBtn" class="btn btn-primary" style="width: 100%; padding: 18px; font-size: 1rem; letter-spacing: 2px;" onclick="executeBooking()">
+                            <button id="submitBtn" class="btn btn-primary submit-btn" onclick="executeBooking()">
                                 INITIATE RENTAL
                             </button>
                         </div>

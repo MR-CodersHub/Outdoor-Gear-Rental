@@ -121,9 +121,9 @@ function initLayout() {
                 </div>
             </div>
         </div>
-        <div class="container" style="margin-top: 60px; padding-top: 30px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted);">
+        <div class="container footer-bottom" style="margin-top: 60px; padding-top: 30px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 15px; font-size: 0.8rem; color: var(--text-muted);">
             <span>&copy; 2026 TAIGA OUTDOOR GEAR</span>
-            <div class="flex gap-2">
+            <div class="flex gap-2" style="flex-wrap: wrap;">
                 <a href="#">Privacy Policy</a>
                 <a href="#">Terms of Service</a>
             </div>
