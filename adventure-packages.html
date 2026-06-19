@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adventure Packages | Peak Rental</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .packages-hero {
+            padding: 160px 0 80px;
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .package-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: -60px;
+        }
+
+        .package-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .package-card h3 {
+            color: var(--text-primary);
+        }
+
+        .package-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-gold);
+        }
+
+        .package-image {
+            height: 250px;
+            position: relative;
+        }
+
+        .package-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .package-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-gold);
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .package-body {
+            padding: 30px;
+            flex-grow: 1;
+        }
+
+        .package-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+
+        .package-features {
+            margin: 1.5rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .package-features li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .package-footer {
+            padding: 0 30px 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <!-- Page Banner -->
+        <section class="page-banner" style="background-image: url('https://images.unsplash.com/photo-1510312305653-8ed496efbe75?auto=format&fit=crop&q=80&w=1920'); padding-top: 100px;">
+            <div class="container">
+                <h4 class="font-heading" style="color: var(--accent-gold); letter-spacing: 4px; margin-bottom: 1.5rem;">Curated Missions</h4>
+                <h1>Adventure Packages.</h1>
+                <p style="max-width: 700px; margin: 0 auto; color: rgba(255,255,255,0.8); font-size: 1.1rem;">We've done the planning for you. Choose a protocol tailored to your next deployment.</p>
+            </div>
+        </section>
+
+        <section class="section" style="padding-top: 0;">
+            <div class="container">
+                <div class="package-grid">
+                    <!-- Package 1 -->
+                    <div class="package-card">
+                        <div class="package-image">
+                            <img src="assets/weekend_camper.png" alt="Weekend Camper">
+                            <div class="package-badge">Most Popular</div>
+                        </div>
+                        <div class="package-body">
+                            <h3>The Weekend Camper Kit</h3>
+                            <p style="font-size: 0.9rem; margin-bottom: 1rem; color: var(--text-secondary);">Perfect for 2 people heading to a state park.</p>
+                            <div class="package-price">$89 <span style="font-size: 0.9rem; font-weight: 400; color: var(--text-secondary);">/ weekend</span></div>
+                            <ul class="package-features">
+                                <li><i data-lucide="check" size="18" color="var(--accent-gold)"></i> 3-Season 2-Person Tent</li>
+                                <li><i data-lucide="check" size="18" color="var(--accent-gold)"></i> 2x Sleeping Bags & Pads</li>
+                                <li><i data-lucide="check" size="18" color="var(--accent-gold)"></i> Camp Stove & Fuel</li>
+                                <li><i data-lucide="check" size="18" color="var(--accent-gold)"></i> Lantern & Headlamps</li>
+                            </ul>
+                        </div>
+                        <div class="package-footer">
+                            <a href="product-details.html" class="btn btn-primary" style="width: 100%;">Reserve This Bundle</a>
+                        </div>
+                    </div>
+
+                    <!-- Package 2 -->
+                    <div class="package-card">
+                        <div class="package-image">
+                            <img src="https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&q=80&w=600" alt="Solo Backpacker">
+                        </div>
+                        <div class="package-body">
+                            <h3>Solo Backpacker Bundle</h3>
+                            <p style="font-size: 0.9rem; margin-bottom: 1rem; color: var(--text-secondary);">Ultralight setup for distance trails.</p>
+                            <div class="package-price">$65 <span style="font-size: 0.9rem; font-weight: 400; color: var(--text-secondary);">/ day</span></div>
+                            <ul class="package-features">
+                                <li><i data-lucide="check" size="18" color="var(--accent-gold)"></i> 1.2kg Solo Tent</li>
+                                <li><i data-lucide="check" size="18" color="var(--accent-gold)"></i> 65L Technical Backpack</li>
+                                <li><i data-lucide="check" size="18" color="var(--accent-gold)"></i> Down Sleeping Bag (20°F)</li>
+                                <li><i data-lucide="check" size="18" color="var(--accent-gold)"></i> Water Filtration Kit</li>
+                            </ul>
+                        </div>
+                        <div class="package-footer">
+                            <a href="product-details.html" class="btn btn-outline" style="width: 100%;">View Details</a>
+                        </div>
+                    </div>
+
+                    <!-- Package 3 -->
+                    <div class="package-card">
+                        <div class="package-image">
+                            <img src="https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?auto=format&fit=crop&q=80&w=600" alt="Family Basecamp">
+                        </div>
+                        <div class="package-body">
+                            <h3>Family Basecamp Set</h3>
+                            <p style="font-size: 0.9rem; margin-bottom: 1rem; color: var(--text-secondary);">Complete setup for a family of four.</p>
+                            <div class="package-price">$149 <span style="font-size: 0.9rem; font-weight: 400; color: var(--text-secondary);">/ day</span></div>
+                            <ul class="package-features">
+                                <li><i data-lucide="check" size="18" color="var(--accent-gold)"></i> 6-Person Standing Height Tent</li>
+                                <li><i data-lucide="check" size="18" color="var(--accent-gold)"></i> 4x Deluxe Air Mattresses</li>
+                                <li><i data-lucide="check" size="18" color="var(--accent-gold)"></i> Large Kitchen Setup</li>
+                                <li><i data-lucide="check" size="18" color="var(--accent-gold)"></i> Camp Table & 4 Chairs</li>
+                            </ul>
+                        </div>
+                        <div class="package-footer">
+                            <a href="product-details.html" class="btn btn-outline" style="width: 100%;">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upsell Section -->
+        <section class="section" style="background-color: var(--bg-tertiary); text-align: center;">
+            <div class="container">
+                <h2 style="color: var(--text-primary); margin-bottom: 1.5rem;">Need something custom?</h2>
+                <p style="margin-bottom: 2.5rem; color: var(--text-secondary);">Browse our full inventory and build your own custom gear list.</p>
+                <a href="products.html" class="btn btn-primary">Browse Full Catalog</a>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

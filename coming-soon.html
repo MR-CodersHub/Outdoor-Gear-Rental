@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setting Up Camp | Coming Soon</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .soon-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bg-primary);
+            transition: var(--transition);
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .soon-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            max-width: 1200px;
+            width: 100%;
+            align-items: center;
+        }
+
+        /* --- Visual Side --- */
+        .soon-visual {
+            position: relative;
+        }
+
+        .soon-visual img {
+            width: 100%;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            filter: grayscale(0.2) contrast(1.1);
+        }
+
+        .soon-visual::after {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 100px;
+            height: 100px;
+            border-top: 4px solid var(--accent-gold);
+            border-left: 4px solid var(--accent-gold);
+            z-index: 2;
+        }
+
+        /* --- Content Side --- */
+        .soon-content h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            line-height: 1;
+            margin-bottom: 2rem;
+        }
+
+        .timer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .timer-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 25px 15px;
+            text-align: center;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+        }
+
+        .timer-val {
+            display: block;
+            font-size: 2.5rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        .timer-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            font-weight: 800;
+        }
+
+        /* --- Subscription --- */
+        .soon-sub {
+            background: var(--bg-secondary);
+            padding: 40px;
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--accent-gold);
+        }
+
+        .soon-sub p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .sub-form {
+            display: flex;
+            gap: 0;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .sub-form input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 15px 20px;
+            color: var(--text-primary);
+            font-family: inherit;
+            outline: none;
+        }
+
+        .sub-form button {
+            background: var(--accent-gold);
+            color: black;
+            border: none;
+            padding: 0 30px;
+            font-weight: 800;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .sub-form button:hover {
+            background: white;
+        }
+
+        .theme-switch-btn {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-primary);
+            z-index: 100;
+        }
+
+        @media (max-width: 992px) {
+            .soon-container { grid-template-columns: 1fr; gap: 4rem; }
+            .soon-visual { order: 2; }
+            .soon-content { order: 1; text-align: center; }
+            .timer-grid { gap: 1rem; }
+            .timer-val { font-size: 1.8rem; }
+            .soon-sub { text-align: left; }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="theme-switch-btn" onclick="toggleTheme()">
+        <i data-lucide="sun"></i>
+    </button>
+
+    <main class="soon-page">
+        <div class="soon-container">
+            <!-- Left: Content -->
+            <div class="soon-content">
+                <h4 class="font-heading" style="color: var(--accent-gold); letter-spacing: 4px; margin-bottom: 1.5rem; font-size: 0.8rem; text-transform: uppercase;">Phase: Preparation</h4>
+                <h1 class="font-heading">Setting <br>Up Camp.</h1>
+                
+                <div class="timer-grid">
+                    <div class="timer-box">
+                        <span class="timer-val" id="days">12</span>
+                        <span class="timer-label">Days</span>
+                    </div>
+                    <div class="timer-box">
+                        <span class="timer-val" id="hours">08</span>
+                        <span class="timer-label">Hrs</span>
+                    </div>
+                    <div class="timer-box">
+                        <span class="timer-val" id="minutes">45</span>
+                        <span class="timer-label">Min</span>
+                    </div>
+                    <div class="timer-box">
+                        <span class="timer-val" id="seconds">32</span>
+                        <span class="timer-label">Sec</span>
+                    </div>
+                </div>
+
+                <div class="soon-sub">
+                    <p>We are currently setting up camp and preparing our fleet of gear. Drop your email below to get notified the second we launch!</p>
+                    <form class="sub-form" onsubmit="event.preventDefault(); alert('Transmission Received. You will be briefed upon launch.');">
+                        <input type="email" placeholder="Enter your email address" required>
+                        <button type="submit">Notify Me</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Right: Visual -->
+            <div class="soon-visual">
+                <img src="assets/coming_soon.png" alt="Setting Up Camp">
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Inline Theme Logic
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+        
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            lucide.createIcons();
+        }
+
+        // Countdown Logic
+        function updateTimer() {
+            const now = new Date().getTime();
+            const launch = new Date("Dec 31, 2026 00:00:00").getTime();
+            const diff = launch - now;
+
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = d.toString().padStart(2, '0');
+            document.getElementById('hours').innerText = h.toString().padStart(2, '0');
+            document.getElementById('minutes').innerText = m.toString().padStart(2, '0');
+            document.getElementById('seconds').innerText = s.toString().padStart(2, '0');
+        }
+
+        setInterval(updateTimer, 1000);
+        initTheme();
+        lucide.createIcons();
+        updateTimer();
+    </script>
+</body>
+</html>

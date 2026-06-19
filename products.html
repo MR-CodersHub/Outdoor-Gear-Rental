@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arsenal Catalog | TAIGA Premium Outdoor Gear</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Page Banner adjustment */
+        .page-banner {
+            background-image: url('https://images.unsplash.com/photo-1509762774605-f07235a08f1f?auto=format&fit=crop&q=80&w=1920');
+            padding-top: 120px;
+            background-position: center 30%;
+        }
+
+        .page-banner::before {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.75), rgba(0,0,0,0.85));
+        }
+
+        .filter-btn {
+            color: var(--text-secondary);
+            font-size: 0.8rem !important;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: 1px solid transparent;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover {
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+        }
+
+        .filter-btn.active {
+            color: black !important;
+            background: var(--accent-gold) !important;
+            border-color: var(--accent-gold);
+        }
+
+        /* Catalog Layout */
+        .catalog-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 3rem 0 2rem;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            border-radius: 50px;
+            background: var(--bg-secondary);
+            width: 100%;
+            max-width: 320px;
+            transition: var(--transition);
+        }
+
+        .search-box:focus-within {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 15px rgba(255, 180, 0, 0.15);
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-family: inherit;
+            outline: none;
+            padding-left: 5px;
+            font-size: 0.85rem;
+            width: 100%;
+        }
+
+        .sort-select-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sort-select {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 10px 30px 10px 15px;
+            color: var(--text-primary);
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ffb400' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .sort-select:hover {
+            border-color: var(--accent-gold);
+        }
+
+        .sort-select:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+        }
+
+        /* Product Cards Grid styling */
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 80px;
+        }
+
+        .product-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            cursor: pointer;
+            height: 100%;
+        }
+
+        .product-card:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .product-img-container {
+            position: relative;
+            aspect-ratio: 4/5;
+            overflow: hidden;
+            background: var(--bg-tertiary);
+        }
+
+        .product-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .product-card:hover .product-img-container img {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent-gold);
+            color: black;
+            font-size: 0.6rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 2;
+        }
+
+        .product-tag {
+            font-size: 0.65rem;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.25rem;
+            display: block;
+            font-weight: 700;
+        }
+
+        .product-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .product-info h3 {
+            font-size: 1.05rem;
+            margin: 0;
+            line-height: 1.3;
+            color: var(--text-primary);
+        }
+
+        .rating-row {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .rating-star {
+            color: var(--accent-gold);
+            fill: var(--accent-gold);
+        }
+
+        .product-description-snippet {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin: 4px 0 8px;
+        }
+
+        .price-container {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            margin-top: auto;
+            border-top: 1px solid var(--border-color);
+            padding-top: 12px;
+        }
+
+        .price-val {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+        }
+
+        .price-unit {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .btn-card-action {
+            width: 100%;
+            margin-top: 12px;
+            padding: 10px;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            padding: 80px 0;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .no-results i {
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+            opacity: 0.5;
+        }
+
+        .no-results h3 {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        /* Responsive Layouts */
+        @media (max-width: 1200px) {
+            .catalog-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .catalog-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            .catalog-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-box {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .catalog-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main>
+        <!-- Page Banner -->
+        <section class="page-banner">
+            <div class="container">
+                <h4 class="font-heading" style="color: #FFB400; letter-spacing: 4px; margin-bottom: 1.5rem;">
+                    Mission Logistics</h4>
+                <h1>Elite Services & Gear.</h1>
+                <p style="max-width: 600px; margin: 0 auto; color: rgba(255,255,255,0.8); font-size: 1.1rem; line-height: 1.7;">
+                    Technical equipment, load haulers, and shelter frameworks calibrated for demanding field operations and climate survival.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <!-- Filter Bar & Search and Sorting -->
+                <div class="catalog-controls">
+                    <div class="category-filter" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <a href="#" class="filter-btn active" data-filter="all">All Gear</a>
+                        <a href="#" class="filter-btn" data-filter="backpacks">Backpacks</a>
+                        <a href="#" class="filter-btn" data-filter="duffels">Duffels</a>
+                        <a href="#" class="filter-btn" data-filter="tents">Tents</a>
+                        <a href="#" class="filter-btn" data-filter="sleeping">Sleeping</a>
+                        <a href="#" class="filter-btn" data-filter="cooking">Cooking</a>
+                        <a href="#" class="filter-btn" data-filter="accessories">Accessories</a>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap; flex-grow: 1; justify-content: flex-end;">
+                        <div class="search-box">
+                            <i data-lucide="search" size="16" style="color: var(--text-muted);"></i>
+                            <input type="text" id="searchInput" placeholder="Search catalog codes...">
+                        </div>
+
+                        <div class="sort-select-wrapper">
+                            <select class="sort-select" id="sortSelect">
+                                <option value="default">Sort: Default</option>
+                                <option value="price-asc">Price: Low to High</option>
+                                <option value="price-desc">Price: High to Low</option>
+                                <option value="rating">Rating: Highest First</option>
+                                <option value="reviews">Reviews: Most Popular</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Filter Information -->
+                <div class="flex justify-between items-center" style="margin-bottom: 25px;">
+                    <div style="font-size: 0.8rem; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; letter-spacing: 1px;" id="itemCountLabel">
+                        Showing 0 of 0 gear assets
+                    </div>
+                </div>
+
+                <!-- Dynamic Grid Container -->
+                <div class="catalog-grid" id="catalogGrid">
+                    <!-- Loaded dynamically via JavaScript from products.js -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/products.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // State variables
+        let selectedCategory = "all";
+        let searchQuery = "";
+        let selectedSort = "default";
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('searchInput');
+            const sortSelect = document.getElementById('sortSelect');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+
+            // Handle URL Parameters for Category Filtering
+            const urlParams = new URLSearchParams(window.location.search);
+            const categoryParam = urlParams.get('category');
+
+            if (categoryParam) {
+                selectedCategory = categoryParam;
+                updateActiveBtn(categoryParam);
+            }
+
+            // Initial catalog render
+            renderCatalog();
+
+            // Search input listener
+            searchInput.addEventListener('input', (e) => {
+                searchQuery = e.target.value.trim().toLowerCase();
+                renderCatalog();
+            });
+
+            // Sort selector listener
+            sortSelect.addEventListener('change', (e) => {
+                selectedSort = e.target.value;
+                renderCatalog();
+            });
+
+            // Category filter click listeners
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const category = btn.getAttribute('data-filter');
+                    selectedCategory = category;
+                    updateActiveBtn(category);
+                    renderCatalog();
+
+                    // Push state to browser URL history without reload
+                    const newUrl = category === 'all' ? 'products.html' : `products.html?category=${category}`;
+                    window.history.pushState({ path: newUrl }, '', newUrl);
+                });
+            });
+
+            function updateActiveBtn(category) {
+                filterBtns.forEach(btn => {
+                    if (btn.getAttribute('data-filter') === category) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            }
+        });
+
+        // Dynamic Catalog Rendering Function
+        function renderCatalog() {
+            const grid = document.getElementById('catalogGrid');
+            const counterLabel = document.getElementById('itemCountLabel');
+            if (!grid) return;
+
+            // 1. Filter Products
+            let filtered = products.filter(p => {
+                // Category match
+                const categoryMatch = (selectedCategory === "all" || p.category.toLowerCase() === selectedCategory.toLowerCase());
+                
+                // Search query match (on name, category, or description)
+                const queryMatch = !searchQuery || 
+                                   p.name.toLowerCase().includes(searchQuery) || 
+                                   p.category.toLowerCase().includes(searchQuery) ||
+                                   p.description.toLowerCase().includes(searchQuery);
+                
+                return categoryMatch && queryMatch;
+            });
+
+            // 2. Sort Products
+            if (selectedSort === "price-asc") {
+                filtered.sort((a, b) => a.dailyRate - b.dailyRate);
+            } else if (selectedSort === "price-desc") {
+                filtered.sort((a, b) => b.dailyRate - a.dailyRate);
+            } else if (selectedSort === "rating") {
+                filtered.sort((a, b) => b.rating - a.rating);
+            } else if (selectedSort === "reviews") {
+                filtered.sort((a, b) => b.reviews - a.reviews);
+            }
+
+            // 3. Update Count Label
+            counterLabel.innerText = `Showing ${filtered.length} of ${products.length} gear assets`;
+
+            // 4. Inject Cards
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="no-results">
+                        <i data-lucide="shield-alert" size="48"></i>
+                        <h3 class="font-heading">No Gear Matches Found</h3>
+                        <p style="color: var(--text-muted); max-width: 400px; margin: 0 auto;">
+                            No tactical gear fits your filter criteria. Try broadening your query or selecting another catalog category.
+                        </p>
+                    </div>
+                `;
+            } else {
+                grid.innerHTML = filtered.map(p => {
+                    const capacitySpec = p.specs.find(s => s.label === "Capacity" || s.label === "Volume") || p.specs[0];
+                    const weightSpec = p.specs.find(s => s.label === "Weight" || s.label === "Total Weight") || p.specs[1];
+                    
+                    return `
+                        <div class="product-card" onclick="location.href='product-details.html?id=${p.id}'">
+                            <div class="product-img-container">
+                                <img src="${p.mainImage}" alt="${p.name}">
+                                ${p.rating >= 4.9 ? `<div class="product-badge">Top Spec</div>` : ''}
+                            </div>
+                            <div class="product-info">
+                                <span class="product-tag">${p.category} ${capacitySpec ? `/ ${capacitySpec.value}` : ''}</span>
+                                <h3 class="font-heading">${p.name}</h3>
+                                
+                                <div class="rating-row">
+                                    <i data-lucide="star" size="12" class="rating-star"></i>
+                                    <span style="font-weight:700; color:var(--text-primary);">${p.rating.toFixed(1)}</span>
+                                    <span>(${p.reviews} tests)</span>
+                                </div>
+                                
+                                <p class="product-description-snippet">${p.description}</p>
+                                
+                                <div class="price-container">
+                                    <div class="price-val">$${p.dailyRate.toFixed(2)}</div>
+                                    <div class="price-unit">/ Day</div>
+                                    <div class="price-unit" style="margin-left:auto; font-size: 0.65rem; text-transform: uppercase; color: var(--accent-gold); letter-spacing: 0.5px;">
+                                        ${p.status.split('&')[0].trim()}
+                                    </div>
+                                </div>
+                                
+                                <a href="product-details.html?id=${p.id}" class="btn btn-outline btn-card-action">
+                                    Analyze Specs <i data-lucide="chevron-right" size="14"></i>
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // Trigger Lucide replacement for new SVG icons
+            if (window.lucide) {
+                window.lucide.createIcons();
+            }
+        }
+    </script>
+</body>
+
+</html>
